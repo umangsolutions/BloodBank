@@ -10,6 +10,30 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="links">links</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="send">SEND</string>
+    <string name="search_donor">Search Donor</string>
+    <string name="chat_room">Chat Room</string>
+    <string name="events">Events</string>
+    <string name="login">Login</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="new_user_click_here_to_register">New User ? Click here to Register</string>
+    <string name="register">Register</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_mobile">Enter Mobile</string>
+    <string name="enter_pin_code">Enter Pin Code</string>
+    <string name="sign_up">Sign up</string>
+    <string name="already_a_member_click_here">Already a Member Click Here !</string>
+    <string name="blood_donation_camp">Blood donation camp</string>
+    <string name="vizag">vizag</string>
+    <string name="date_20_02_2018">Date: 20/02/2018</string>
+    <string name="select_date">Select Date</string>
+    <string name="location">Location</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="signout">SignOut</string>
 
     <array name="blood">
         <item>Select Your Blood Group</item>

@@ -15,8 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_toLeftOf="@+id/checkBox"
-        android:paddingLeft="5dp">
+        android:layout_toStartOf="@+id/checkBox"
+        android:paddingStart="5dp"
+        tools:ignore="RtlSymmetry">
 
         <TextView
             android:id="@+id/textView"
@@ -38,7 +39,7 @@
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:padding="1dp" />
 

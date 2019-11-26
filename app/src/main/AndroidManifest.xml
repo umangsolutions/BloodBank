@@ -2,21 +2,34 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.projects.bloodbank">
+    
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+
+    <uses-feature android:name="android.hardware.location.gps" />
 
     <application
-        android:name=".MyFirebaseApp"
+        android:name=".app.MyFirebaseApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:fullBackupContent="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name="com.projects.bloodbank.SplashScreenActivity">
+
+        <activity android:name=".activities.SplashScreenActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,21 +37,39 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.projects.bloodbank.LoginActivity" />
-        <activity android:name="com.projects.bloodbank.RegisterActivity" />
-        <activity android:name="com.projects.bloodbank.Home1Activity"
+        <activity android:name=".activities.LoginActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.RegisterActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.Home1Activity"
+            android:screenOrientation="portrait"
             android:launchMode="singleInstance"/>
-        <activity android:name="com.projects.bloodbank.chatmessage.ChatActivity" />
-        <activity android:name="com.projects.bloodbank.eventactivities.EventsActivity" />
+
+        <activity android:name=".activities.ChatActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activities.EventsActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
-            android:name="com.projects.bloodbank.donardetails.DonarDetailsActivity"
+            android:name=".activities.DonarDetailsActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="com.projects.bloodbank.LinksActivity"/>
+
+        <activity android:name=".activities.LinksActivity"
+            android:screenOrientation="portrait"/>
 
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false"/>
+
+        <service
+            android:name=".utilities.LocationTrack"
+            android:enabled="true"/>
+
     </application>
 
 </manifest>

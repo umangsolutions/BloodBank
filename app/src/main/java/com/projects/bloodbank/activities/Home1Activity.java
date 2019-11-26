@@ -1,4 +1,4 @@
-package com.projects.bloodbank;
+package com.projects.bloodbank.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -6,20 +6,23 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import com.projects.bloodbank.chatmessage.ChatActivity;
-import com.projects.bloodbank.donardetails.DonarDetailsActivity;
-import com.projects.bloodbank.eventactivities.EventsActivity;
+import com.projects.bloodbank.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.projects.bloodbank.utilities.ConstantValues;
+import com.projects.bloodbank.utilities.MyAppPrefsManager;
 
 public class Home1Activity extends AppCompatActivity implements View.OnClickListener {
 LinearLayout donarLayout,chatLayout,eventsLayout;
 
-
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +61,7 @@ LinearLayout donarLayout,chatLayout,eventsLayout;
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
 
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,6 +73,11 @@ LinearLayout donarLayout,chatLayout,eventsLayout;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_settings) {
+            // Set UserLoggedIn in MyAppPrefsManager
+            MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(Home1Activity.this);
+            myAppPrefsManager.setUserLoggedIn(false);
+            // Set isLogged_in of ConstantValues
+            ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(Home1Activity.this, LoginActivity.class));
             finish();
@@ -84,28 +88,24 @@ LinearLayout donarLayout,chatLayout,eventsLayout;
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(Home1Activity.this);
-        } else {
-            builder = new AlertDialog.Builder(Home1Activity.this);
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+
+            return;
         }
-        builder.setTitle("Confirm Exit ")
-                .setMessage("Do you want to exit app?")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
-                        moveTaskToBack(true);
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                        System.exit(1);
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+
+                doubleBackToExitPressedOnce=false;
+
+
+            }
+        }, 2000);
     }
 }

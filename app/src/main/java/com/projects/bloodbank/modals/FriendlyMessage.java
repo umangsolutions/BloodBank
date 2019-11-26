@@ -1,4 +1,4 @@
-package com.projects.bloodbank.chatmessage;
+package com.projects.bloodbank.modals;
 
 /**
  * Created by evolutyz on 21/02/18.
@@ -14,7 +14,7 @@ public  class FriendlyMessage {
     }
 
 
-    FriendlyMessage(String text, String name) {
+    public FriendlyMessage(String text, String name) {
         this.text = text;
         this.name = name;
 

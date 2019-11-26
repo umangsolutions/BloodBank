@@ -1,4 +1,4 @@
-package com.projects.bloodbank;
+package com.projects.bloodbank.app;
 
 import com.google.firebase.database.FirebaseDatabase;
 

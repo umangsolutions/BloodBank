@@ -9,11 +9,7 @@
     android:background="@color/colorPrimary">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+
 
 
         <FrameLayout
@@ -36,7 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:text="Register"
+                    android:text="@string/register"
                     android:textStyle="bold"
                     android:textSize="24sp"
                     android:gravity="center_horizontal"
@@ -50,13 +46,13 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etFullName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="textPersonName"
-                        android:hint="Enter Name"
+                        android:hint="@string/enter_name"
                         android:padding="10dp"
                         />
 
@@ -69,13 +65,13 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="textEmailAddress"
-                        android:hint="Enter Email"
+                        android:hint="@string/enter_email"
                         android:padding="10dp"
                         />
 
@@ -87,14 +83,14 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etMobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:maxLength="10"
                         android:inputType="phone"
-                        android:hint="Enter Mobile"
+                        android:hint="@string/enter_mobile"
                         android:padding="10dp"
                         />
 
@@ -106,14 +102,14 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
                     app:passwordToggleEnabled="true">
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
                         android:ems="10"
                         android:inputType="textPassword"
-                        android:hint="Enter Password"
+                        android:hint="@string/enter_password"
                         android:padding="10dp"
                         />
 
@@ -133,14 +129,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp">
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:maxLength="6"
                         android:inputType="number"
-                        android:hint="Enter Pin Code"
+                        android:hint="@string/enter_pin_code"
                         android:padding="10dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -150,7 +146,7 @@
                     android:id="@+id/buttonSave"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sign up"
+                    android:text="@string/sign_up"
                     android:layout_marginTop="15dp"
                     android:background="@color/colorAccent"
                     android:textColor="@android:color/white"/>
@@ -159,7 +155,7 @@
                     android:id="@+id/txtLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Already a Member Click Here !"
+                    android:text="@string/already_a_member_click_here"
                     android:gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:padding="5dp"/>
@@ -174,9 +170,9 @@
                 android:padding="10dp"
                 android:layout_gravity="center|top"
                 android:src="@drawable/splash_icon"
-                android:background="@drawable/circlershape"/>
+                android:background="@drawable/circlershape"
+                android:contentDescription="@string/app_name" />
         </FrameLayout>
 
-    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

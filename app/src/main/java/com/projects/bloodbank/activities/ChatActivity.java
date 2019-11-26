@@ -1,4 +1,4 @@
-package com.projects.bloodbank.chatmessage;
+package com.projects.bloodbank.activities;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -23,6 +23,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.projects.bloodbank.modals.FriendlyMessage;
+import com.projects.bloodbank.adapters.MessageAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package com.projects.bloodbank.eventactivities;
+package com.projects.bloodbank.modals;
 
 /**
  * Created by USER on 2/20/2018.

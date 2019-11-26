@@ -19,5 +19,6 @@
         android:layout_margin="16dp"
         android:clickable="true"
         android:src="@drawable/ic_add_white_18dp"
-        app:backgroundTint="@color/colorPrimary" />
+        app:backgroundTint="@color/colorPrimary"
+        android:focusable="true" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

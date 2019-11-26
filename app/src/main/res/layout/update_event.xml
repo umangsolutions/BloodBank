@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
@@ -17,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
-            android:hint="Select Date"
+            android:hint="@string/select_date"
             android:textColor="#000"
             android:textSize="20sp" />
 
@@ -26,7 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:src="@drawable/ic_date_range_black_36dp" />
+            android:src="@drawable/ic_date_range_black_36dp"
+            android:contentDescription="@string/app_name" />
     </LinearLayout>
 
     <LinearLayout
@@ -39,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
-            android:text="Location"
+            android:text="@string/location"
             android:textColor="#000"
             android:textSize="20sp" />
 
@@ -48,16 +50,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="textCapWords"/>
+            android:inputType="textCapWords"
+            tools:ignore="Autofill,LabelFor" />
     </LinearLayout>
 
     <EditText
         android:id="@+id/eventupdate"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView3update"
         android:layout_marginTop="19dp"
         android:ems="10"
         android:background="@drawable/text"
@@ -68,23 +68,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/eventupdate"
         android:orientation="horizontal"
         android:paddingTop="10dp">
 
         <Button
+
             android:id="@+id/btnEventupdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="SUBMIT" />
+            android:text="@string/submit"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/btnEventdelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="CANCEL" />
+            android:text="@string/cancel"
+            tools:ignore="ButtonStyle" />
     </LinearLayout>
 
 </LinearLayout>

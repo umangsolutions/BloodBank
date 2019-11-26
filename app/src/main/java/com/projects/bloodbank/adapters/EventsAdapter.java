@@ -1,4 +1,4 @@
-package com.projects.bloodbank.eventactivities;
+package com.projects.bloodbank.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.projects.bloodbank.R;
+import com.projects.bloodbank.modals.EventItem;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class EventsAdapter extends ArrayAdapter<EventItem> {
     private Activity context;
     private List<EventItem> eventList;
 
-    EventsAdapter(@NonNull Activity context, List<EventItem> eventList) {
+    public EventsAdapter(@NonNull Activity context, List<EventItem> eventList) {
         super(context, R.layout.event_item, eventList);
         this.context = context;
         this.eventList = eventList;

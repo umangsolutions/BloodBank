@@ -1,4 +1,4 @@
-package com.projects.bloodbank;
+package com.projects.bloodbank.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.projects.bloodbank.R;
 
 import java.util.Objects;
 

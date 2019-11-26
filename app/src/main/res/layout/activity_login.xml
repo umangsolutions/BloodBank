@@ -13,7 +13,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:ems="10"
@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="Login"
+                android:text="@string/login"
                 android:textStyle="bold"
                 android:textSize="24sp"
                 android:gravity="center_horizontal"
@@ -40,13 +40,13 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="30dp">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etMobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textEmailAddress"
-                    android:hint="Enter Email"
+                    android:hint="@string/enter_email"
                     android:padding="10dp"
                     />
 
@@ -58,14 +58,14 @@
                 android:layout_marginTop="20dp"
                 app:passwordToggleEnabled="true">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
                     android:ems="10"
                     android:inputType="textPassword"
-                    android:hint="Enter Password"
+                    android:hint="@string/enter_password"
                     android:padding="10dp"
                     />
 
@@ -77,7 +77,7 @@
                 android:id="@+id/btnSignIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sign in"
+                android:text="@string/sign_in"
                 android:layout_marginTop="15dp"
                 android:background="@color/colorAccent"
                 android:textColor="@android:color/white"/>
@@ -86,7 +86,7 @@
                 android:id="@+id/txtRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New User ? Click here to Register"
+                android:text="@string/new_user_click_here_to_register"
                 android:gravity="center"
                 android:padding="8dp"
                 android:layout_marginTop="10dp"/>
@@ -101,6 +101,7 @@
             android:padding="10dp"
             android:layout_gravity="center|top"
             android:src="@drawable/splash_icon"
-            android:background="@drawable/circlershape"/>
+            android:background="@drawable/circlershape"
+            android:contentDescription="@string/app_name" />
     </FrameLayout>
 </LinearLayout>

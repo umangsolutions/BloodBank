@@ -1,4 +1,4 @@
-package com.projects.bloodbank.donardetails;
+package com.projects.bloodbank.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -33,9 +33,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.projects.bloodbank.modals.Details;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class DonarDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     DatabaseReference myRef;
@@ -91,18 +93,13 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
         detailsList=new ArrayList<>();
         myRef= FirebaseDatabase.getInstance().getReference("details");
         myRef.keepSynced(true);
-          /*
-             * mListView (ListView) //DO NOT ADD `NULL` here.
-             */
-        final View headerView = getLayoutInflater().inflate(R.layout.custom_list_view_header,
-                listView, false);
 
-        checkBox_header = (CheckBox) headerView.findViewById(
+        checkBox_header = (CheckBox) findViewById(
                 R.id.checkBox_header);
 
 
 
-         /*
+        /*
          * To avoid adding multiple times
          */
         checkBox_header.setOnClickListener(new View.OnClickListener() {
@@ -110,25 +107,21 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(View v) {
 
-                    /*
-                     * Set all the checkbox to True/False
-                     */
+                /*
+                 * Set all the checkbox to True/False
+                 */
                 for (int i = 0; i < count; i++) {
                     mChecked.put(i, checkBox_header.isChecked());
                 }
 
-                    /*
-                     * Update View
-                     */
+                /*
+                 * Update View
+                 */
                 adapter.notifyDataSetChanged();
 
             }
         });
 
-            /*
-             * Add Header to ListView
-             */
-        listView.addHeaderView(headerView);
 
 
         spinner=findViewById(R.id.spinnerBloodGroup);
@@ -179,33 +172,29 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        if (v.getId() == R.id.donarSend) {
+            String donarMessage = donarEdittext.getText().toString();
 
-            case R.id.donarSend:
-                String donarMessage =donarEdittext.getText().toString();
+            donarSend.setEnabled(true);
 
-                donarSend.setEnabled(true);
+            String toNumbers = "";
 
-                    String toNumbers = "";
+            for (String s : phonnoList) {
+                Log.e("PHONELIST", "" + s);
+                toNumbers = toNumbers + s + ";";
 
-                    for ( String s : phonnoList)
-                    {
-                        Log.e("PHONELIST",""+s);
-                        toNumbers = toNumbers + s + ";";
-
-
-                    }
-                    phonnoList.clear();
-                    toNumbers = toNumbers.substring(0,toNumbers.length()-1);
-                    String message= "this is a custom message";
-
-                    Uri sendSmsTo = Uri.parse("smsto:" + toNumbers);
-                    Intent intent = new Intent(
-                            android.content.Intent.ACTION_SENDTO, sendSmsTo);
-                    intent.putExtra("sms_body", donarMessage);
-                    startActivity(intent);
 
             }
+            phonnoList.clear();
+            toNumbers = toNumbers.substring(0, toNumbers.length() - 1);
+            String message = "this is a custom message";
+
+            Uri sendSmsTo = Uri.parse("smsto:" + toNumbers);
+            Intent intent = new Intent(
+                    Intent.ACTION_SENDTO, sendSmsTo);
+            intent.putExtra("sms_body", donarMessage);
+            startActivity(intent);
+        }
 
 
 
@@ -229,9 +218,9 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
         @Override
         public int getCount() {
 
-            /*
-             * Length of our listView
-             */
+
+             /* Length of our listView*/
+
             count = detailsList.size();
             return count;
         }
@@ -239,18 +228,18 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
         @Override
         public Object getItem(int position) {
 
-            /*
-             * Current Item
-             */
+
+          /*Current Item*/
+
             return position;
         }
 
         @Override
         public long getItemId(int position) {
 
-            /*
-             * Current Item's ID
-             */
+
+          /*Current Item's ID*/
+
             return position;
         }
 
@@ -262,15 +251,13 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
 
             if (mView == null) {
 
-                /*
-                 * LayoutInflater
-                 */
+                /*LayoutInflater*/
+
                 final LayoutInflater sInflater = (LayoutInflater) sActivity.getSystemService(
                         Context.LAYOUT_INFLATER_SERVICE);
 
-                /*
-                 * Inflate Custom List View
-                 */
+             /*Inflate Custom List View*/
+
                 assert sInflater != null;
                 mView = sInflater.inflate(R.layout.custom_list_view, null, false);
 
@@ -294,15 +281,15 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                             if (isChecked) {
 
-                                /*
-                                 * Saving Checked Position
-                                 */
+
+                                /* * Saving Checked Position*/
+
                                 mChecked.put(position, isChecked);
 
                                 phonnoList.add(detailsList.get(position).getNumber());
-                                /*
-                                 * Find if all the check boxes are true
-                                 */
+
+                               /*  * Find if all the check boxes are true*/
+
                                 if (isAllValuesChecked()) {
 
                                     Log.e("CONDITION",""+isAllValuesChecked());
@@ -316,14 +303,14 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
 
                             } else {
 
-                                /*
-                                 * Removed UnChecked Position
-                                 */
+
+                                /* * Removed UnChecked Position*/
+
                                 mChecked.delete(position);
                                 phonnoList.remove(detailsList.get(position).getNumber());
-                                /*
-                                 * Remove Checked in Header
-                                 */
+
+                               /*  * Remove Checked in Header*/
+
                                 checkBox_header.setChecked(false);
 
                             }
@@ -331,22 +318,22 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                         }
                     });
 
-            /*
-             * Set CheckBox "TRUE" or "FALSE" if mChecked == true
-             */
+
+             /* * Set CheckBox "TRUE" or "FALSE" if mChecked == true*/
+
             mCheckBox.setChecked((mChecked.get(position)));
 
-            /* **************ADDING CONTENTS**************** */
+             /* **************ADDING CONTENTS**************** */
 
-            /*
-             * Return View here
-             */
+
+           /*  * Return View here*/
+
             return mView;
         }
 
-        /*
-         * Find if all values are checked.
-         */
+
+        /* * Find if all values are checked.*/
+
         boolean isAllValuesChecked() {
 
             for (int i = 0; i < count; i++) {

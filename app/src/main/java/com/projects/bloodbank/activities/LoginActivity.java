@@ -1,4 +1,4 @@
-package com.projects.bloodbank;
+package com.projects.bloodbank.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.projects.bloodbank.R;
+import com.projects.bloodbank.utilities.ConstantValues;
+import com.projects.bloodbank.utilities.MyAppPrefsManager;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,14 +33,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     Button btnSignIn;
     TextView txtRegister;
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
+    //private FirebaseAuth.AuthStateListener authStateListener;
     ProgressDialog progressDialog;
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-    }
+    MyAppPrefsManager myAppPrefsManager;
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
         progressDialog=new ProgressDialog(this);
-
-        authStateListener=new FirebaseAuth.AuthStateListener() {
+        myAppPrefsManager= new MyAppPrefsManager(LoginActivity.this);
+      /*  authStateListener=new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser()!=null){
@@ -54,7 +55,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 }
 
             }
-        };
+        };*/
         etMobile = (EditText) findViewById(R.id.etMobile);
         etPassword = (EditText) findViewById(R.id.etPassword);
 
@@ -73,13 +74,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             }
         });
     }
-    @Override
+   /* @Override
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(authStateListener);
 
 
-    }
+    }*/
     private boolean isValidEmail(String Emailid) {
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -118,6 +119,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful()){
 
+
                             progressDialog.dismiss();
                             Toast.makeText(LoginActivity.this,"Please Enter Valid Email/Password", Toast.LENGTH_SHORT).show();
 
@@ -125,6 +127,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         }
                         
                         else {
+                            myAppPrefsManager.setUserLoggedIn(true);
+
+                            // Set isLogged_in of ConstantValues
+                            ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
+                            Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                             finish();
 
@@ -139,28 +146,24 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(LoginActivity.this);
-        } else {
-            builder = new AlertDialog.Builder(LoginActivity.this);
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+
+            return;
         }
-        builder.setTitle("Confirm Exit ")
-                .setMessage("Do you want to exit app?")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
-                        moveTaskToBack(true);
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                        System.exit(1);
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+
+                doubleBackToExitPressedOnce=false;
+
+
+            }
+        }, 2000);
     }
 }

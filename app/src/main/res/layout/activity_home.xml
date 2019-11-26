@@ -36,7 +36,8 @@
                     android:layout_height="100dp"
                     android:layout_margin="10dp"
                     android:padding="10dp"
-                    android:src="@drawable/searchblood" />
+                    android:src="@drawable/searchblood"
+                    android:contentDescription="@string/app_name" />
 
                 <View
                     android:layout_width="4dp"
@@ -52,7 +53,7 @@
                         android:id="@+id/textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Search Donor"
+                        android:text="@string/search_donor"
                         android:textColor="@android:color/white"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -84,7 +85,8 @@
                     android:layout_height="100dp"
                     android:layout_margin="10dp"
                     android:padding="10dp"
-                    android:src="@drawable/chatroom" />
+                    android:src="@drawable/chatroom"
+                    android:contentDescription="@string/app_name" />
 
                 <View
                     android:layout_width="4dp"
@@ -100,7 +102,7 @@
                         android:id="@+id/textView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Chat Room"
+                        android:text="@string/chat_room"
                         android:textColor="@android:color/white"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -131,7 +133,8 @@
                     android:layout_height="100dp"
                     android:layout_margin="10dp"
                     android:padding="10dp"
-                    android:src="@drawable/event" />
+                    android:src="@drawable/event"
+                    android:contentDescription="@string/app_name" />
 
                 <View
                     android:layout_width="4dp"
@@ -147,7 +150,7 @@
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Events"
+                        android:text="@string/events"
                         android:textColor="@android:color/white"
                         android:textSize="24sp"
                         android:textStyle="bold" />

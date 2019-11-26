@@ -1,4 +1,4 @@
-package com.projects.bloodbank.chatmessage;
+package com.projects.bloodbank.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.projects.bloodbank.R;
+import com.projects.bloodbank.modals.FriendlyMessage;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  */
 
 public class MessageAdapter extends ArrayAdapter<FriendlyMessage> {
-    MessageAdapter(Context context, int resource, List<FriendlyMessage> objects) {
+    public MessageAdapter(Context context, int resource, List<FriendlyMessage> objects) {
         super(context, resource, objects);
     }
 

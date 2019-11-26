@@ -1,4 +1,4 @@
-package com.projects.bloodbank.donardetails;
+package com.projects.bloodbank.modals;
 
 /**
  * Created by DELL on 20-02-2018.

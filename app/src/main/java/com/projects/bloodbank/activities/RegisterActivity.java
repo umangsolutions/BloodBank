@@ -1,4 +1,4 @@
-package com.projects.bloodbank;
+package com.projects.bloodbank.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -15,7 +15,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.projects.bloodbank.donardetails.Details;
+import com.projects.bloodbank.R;
+import com.projects.bloodbank.modals.Details;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -84,30 +85,56 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 name=etFullName.getText().toString().trim();
+                email =etEmail.getText().toString().trim();
+                number =etMobile.getText().toString().trim();
+                pincode =etAddress.getText().toString().trim();
+                bloodgroup=spinner.getSelectedItem().toString();
+                password =etPassword.getText().toString().trim();
                 if (TextUtils.isEmpty(name)) {
                     etFullName.setError("Invalid Name");
                 }
-                email =etEmail.getText().toString().trim();
-
                 if (!isValidEmail(email)) {
                     etEmail.setError("Invalid Email");
                 }
-                number =etMobile.getText().toString().trim();
+
                 if (!isValidNumber(number)) {
                     etMobile.setError("Invalid Number");
                 }
-                pincode =etAddress.getText().toString().trim();
+
                 if (!isValidPincode(pincode)) {
                     etAddress.setError("Invalid Pincode");
                 }
-                bloodgroup=spinner.getSelectedItem().toString();
-                password =etPassword.getText().toString().trim();
+
                 if (!isValidPassword(password)) {
                     Toast.makeText(RegisterActivity.this, "Password Should be Minimum 6 Letters", Toast.LENGTH_SHORT).show();
                 }
 
 
-                saveDate();
+                if(TextUtils.isEmpty(email))
+                {
+                    if ((TextUtils.isEmpty(password)))
+                        Toast.makeText(RegisterActivity.this,"Please Enter Details", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(email))
+                {
+                    Toast.makeText(RegisterActivity.this,"Please Enter Email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(password))
+                {
+                    Toast.makeText(RegisterActivity.this,"Please Enter Password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (bloodgroup.equals("Select Your Blood Group")) {
+                    Toast.makeText(RegisterActivity.this, "Select Your Blood Group", Toast.LENGTH_SHORT).show();
+                }
+                else {
+
+                    saveDate();
+                }
+
 
             }
         });
@@ -135,26 +162,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void saveDate(){
 
-        if(TextUtils.isEmpty(email))
-        {
-            if ((TextUtils.isEmpty(password)))
-                Toast.makeText(this,"Please Enter Details", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(email))
-        {
-            Toast.makeText(this,"Please Enter Email", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (TextUtils.isEmpty(password))
-        {
-            Toast.makeText(this,"Please Enter Password", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (bloodgroup.equals("Select Your Blood Group")) {
-            Toast.makeText(RegisterActivity.this, "Select Your Blood Group", Toast.LENGTH_SHORT).show();
-        }
 
         if (!name.isEmpty() && !pincode.isEmpty() && isValidPincode(pincode) && !email.isEmpty() &&isValidEmail(email)  && !number.isEmpty() &&isValidNumber(number) && !password.isEmpty() && isValidPassword(password) && !bloodgroup.equals("Select Your Blood Group") ) {
 

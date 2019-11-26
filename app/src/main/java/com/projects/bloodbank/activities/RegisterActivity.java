@@ -51,8 +51,8 @@ public class RegisterActivity extends AppCompatActivity {
         progressDialog=new ProgressDialog(this);
         ConstantValues.internetCheck(RegisterActivity.this);
         mAuth = FirebaseAuth.getInstance();
-         database = FirebaseDatabase.getInstance();
-         myRef = database.getReference("details");
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("details");
         firebaseAuth = FirebaseAuth.getInstance();
         spinner=findViewById(R.id.spinnerBlood);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -174,21 +174,21 @@ public class RegisterActivity extends AppCompatActivity {
             progressDialog.show();
             mAuth.createUserWithEmailAndPassword(email,password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
-                        finish();
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                                finish();
 
-                    }
-                    else {
-                        Toast.makeText(RegisterActivity.this, "Email Already Exists.",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                    progressDialog.dismiss();
-                }
-            });
+                            }
+                            else {
+                                Toast.makeText(RegisterActivity.this, "Email Already Exists.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            progressDialog.dismiss();
+                        }
+                    });
 
 
         } else {

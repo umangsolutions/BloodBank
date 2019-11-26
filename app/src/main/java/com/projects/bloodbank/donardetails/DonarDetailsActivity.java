@@ -1,11 +1,12 @@
 package com.projects.bloodbank.donardetails;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -220,7 +221,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
         Activity sActivity;
         List<Details> detailsList;
 
-        public CustomAdapter(Activity sActivity, List<Details> detailsList) {
+        private CustomAdapter(Activity sActivity, List<Details> detailsList) {
             this.sActivity = sActivity;
             this.detailsList = detailsList;
         }
@@ -253,6 +254,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
             return position;
         }
 
+        @SuppressLint({"InflateParams", "SetTextI18n"})
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
 
@@ -269,6 +271,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                 /*
                  * Inflate Custom List View
                  */
+                assert sInflater != null;
                 mView = sInflater.inflate(R.layout.custom_list_view, null, false);
 
             }
@@ -331,7 +334,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
             /*
              * Set CheckBox "TRUE" or "FALSE" if mChecked == true
              */
-            mCheckBox.setChecked((mChecked.get(position) == true ? true : false));
+            mCheckBox.setChecked((mChecked.get(position)));
 
             /* **************ADDING CONTENTS**************** */
 
@@ -344,7 +347,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
         /*
          * Find if all values are checked.
          */
-        protected boolean isAllValuesChecked() {
+        boolean isAllValuesChecked() {
 
             for (int i = 0; i < count; i++) {
                 if (!mChecked.get(i)) {
@@ -358,12 +361,8 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                //finish();
-                onBackPressed();
-                break;
-
+        if (item.getItemId() == android.R.id.home) {//finish();
+            onBackPressed();
         }
         return true;
     }

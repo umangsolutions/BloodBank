@@ -14,7 +14,7 @@ public  class FriendlyMessage {
     }
 
 
-    public FriendlyMessage(String text, String name) {
+    FriendlyMessage(String text, String name) {
         this.text = text;
         this.name = name;
 

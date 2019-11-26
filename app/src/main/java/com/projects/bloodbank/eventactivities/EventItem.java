@@ -5,10 +5,10 @@ package com.projects.bloodbank.eventactivities;
  */
 
 public class EventItem {
-    String id;
-    String date1;
-    String location;
-    String name;
+    private String id;
+    private String date1;
+    private String location;
+    private String name;
 
     public EventItem() {
     }

@@ -1,10 +1,11 @@
 package com.projects.bloodbank.eventactivities;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 public class EventsActivity extends AppCompatActivity {
 private List<EventItem> eventItemList=new ArrayList<>();
@@ -39,7 +41,7 @@ ListView listView;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Events");
 
@@ -58,6 +60,7 @@ ListView listView;
     private  void updateEvent(){
         AlertDialog.Builder builder2=new AlertDialog.Builder(this);
         LayoutInflater layoutInflater=getLayoutInflater();
+        @SuppressLint("InflateParams")
         View view2=layoutInflater.inflate(R.layout.update_event,null);
         builder2.setView(view2);
         final AlertDialog alertDialog2=builder2.create();
@@ -82,6 +85,7 @@ ListView listView;
                 editTextLo.setEnabled(true);
                 editTextUE.setEnabled(true);
                 DatePickerDialog datePickerDialog = new DatePickerDialog(EventsActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         textViewUE.setText("Date :"+" "+""+(month +1) + "/" + dayOfMonth + "/" + year);
@@ -128,12 +132,8 @@ ListView listView;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                //finish();
-                onBackPressed();
-                break;
-
+        if (item.getItemId() == android.R.id.home) {//finish();
+            onBackPressed();
         }
         return true;
     }

@@ -5,13 +5,13 @@ package com.projects.bloodbank.donardetails;
  */
 
 public class Details {
-    String id;
-    String name;
-    String email;
-    String number;
-    String password1;
-    String blood;
-    String pincode;
+    private String id;
+    private String name;
+    private String email;
+    private String number;
+    private String password1;
+    private String blood;
+    private String pincode;
 
     public Details(String id, String name, String email, String number, String password, String blood, String pincode) {
         this.id = id;

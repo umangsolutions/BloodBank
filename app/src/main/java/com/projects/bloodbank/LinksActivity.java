@@ -3,15 +3,17 @@ package com.projects.bloodbank;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.Objects;
+
 public class LinksActivity extends AppCompatActivity {
-     String[] links;
+    String[] links;
     ListView listView;
     ArrayAdapter<String> adapter;
 
@@ -24,7 +26,7 @@ public class LinksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_links);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Links");
         listView=findViewById(R.id.linkslist);
@@ -46,12 +48,8 @@ public class LinksActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                //finish();
-                onBackPressed();
-                break;
-
+        if (item.getItemId() == android.R.id.home) {//finish();
+            onBackPressed();
         }
         return true;
     }

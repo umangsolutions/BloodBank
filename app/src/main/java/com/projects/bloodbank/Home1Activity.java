@@ -5,7 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +17,7 @@ import com.projects.bloodbank.eventactivities.EventsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Home1Activity extends AppCompatActivity implements View.OnClickListener {
-LinearLayout donarLayout,chatLayout,eventsLayout,linksLayout;
+LinearLayout donarLayout,chatLayout,eventsLayout;
 
 
 
@@ -31,13 +31,12 @@ LinearLayout donarLayout,chatLayout,eventsLayout,linksLayout;
         donarLayout=(LinearLayout)findViewById(R.id.donarLayout);
         chatLayout=(LinearLayout)findViewById(R.id.chatLayout);
         eventsLayout=(LinearLayout)findViewById(R.id.eventsLayout);
-        linksLayout=findViewById(R.id.donarLinks);
+
 
 
         donarLayout.setOnClickListener(this);
         chatLayout.setOnClickListener(this);
         eventsLayout.setOnClickListener(this);
-        linksLayout.setOnClickListener(this);
     }
 
     @Override
@@ -55,9 +54,7 @@ LinearLayout donarLayout,chatLayout,eventsLayout,linksLayout;
             case R.id.eventsLayout:
                 startActivity(new Intent(this,EventsActivity.class));
                 break;
-            case R.id.donarLinks:
-                startActivity(new Intent(this,LinksActivity.class));
-                break;
+
         }
     }
 
@@ -76,15 +73,13 @@ LinearLayout donarLayout,chatLayout,eventsLayout,linksLayout;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(Home1Activity.this,LoginActivity.class));
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.action_settings) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(Home1Activity.this, LoginActivity.class));
+            finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

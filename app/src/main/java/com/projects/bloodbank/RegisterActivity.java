@@ -3,8 +3,8 @@ package com.projects.bloodbank;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Register");
         progressDialog=new ProgressDialog(this);
@@ -123,22 +124,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     public boolean isValidNumber(String num)
     {
-        if (num.length()==10) {
-            return true;
-        }
-        return false;
+        return num.length() == 10;
     }
     public boolean isValidPassword(String pass) {
-        if (pass.length() >= 6) {
-            return true;
-        }
-        return false;
+        return pass.length() >= 6;
     }
     public boolean isValidPincode(String pin) {
-        if (pin.length() == 6) {
-            return true;
-        }
-        return false;
+        return pin.length() == 6;
     }
 
     private void saveDate(){
@@ -196,12 +188,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                //finish();
-                onBackPressed();
-                break;
-
+        if (item.getItemId() == android.R.id.home) {//finish();
+            onBackPressed();
         }
         return true;
     }

@@ -1,8 +1,8 @@
 package com.projects.bloodbank.chatmessage;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.projects.bloodbank.R;
@@ -26,45 +25,44 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 1000;
     public static final int RC_SIGN_IN=1;
-
-    private ListView mMessageListView;
     private MessageAdapter mMessageAdapter;
-    private ProgressBar mProgressBar;
-    TextView textView;
+
     private EditText mMessageEditText;
     private Button mSendButton;
 
     String mUsername;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
-    private ChildEventListener childEventListener;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    ChildEventListener childEventListener;
 
-    private FirebaseUser firebaseAuth;
+    FirebaseUser firebaseAuth;
     FirebaseAuth.AuthStateListener authStateListener;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Chat Room");
         firebaseAuth= FirebaseAuth.getInstance().getCurrentUser();
-        mUsername = firebaseAuth.getEmail().toString();
+        assert firebaseAuth != null;
+        mUsername = firebaseAuth.getEmail();
         firebaseDatabase= FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference().child("messages");
         databaseReference.keepSynced(true);
         // Initialize references to views
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mMessageListView = (ListView) findViewById(R.id.messageListView);
+        ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        ListView mMessageListView = (ListView) findViewById(R.id.messageListView);
 
         mMessageEditText = (EditText) findViewById(R.id.messageEditText);
         mSendButton = (Button) findViewById(R.id.sendButton);
@@ -160,7 +158,7 @@ public class ChatActivity extends AppCompatActivity {
                                     .createSignInIntentBuilder()
                                     .setIsSmartLockEnabled(false)
                                     .setAvailableProviders(
-                                            Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build()))
+                                            Collections.singletonList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build()))
                                     .build(),
                             RC_SIGN_IN);
                 }
@@ -172,12 +170,8 @@ public class ChatActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                //finish();
-                onBackPressed();
-                break;
-
+        if (item.getItemId() == android.R.id.home) {//finish();
+            onBackPressed();
         }
         return true;
     }

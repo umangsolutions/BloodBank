@@ -1,10 +1,11 @@
 package com.projects.bloodbank.eventactivities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.provider.CalendarContract;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +24,8 @@ import java.util.List;
 public class EventsAdapter extends ArrayAdapter<EventItem> {
     private Activity context;
     private List<EventItem> eventList;
-    private ImageView imageView;
-    EventItem  event;
 
-    public EventsAdapter(@NonNull Activity context, List<EventItem> eventList) {
+    EventsAdapter(@NonNull Activity context, List<EventItem> eventList) {
         super(context, R.layout.event_item, eventList);
         this.context = context;
         this.eventList = eventList;
@@ -36,11 +35,12 @@ public class EventsAdapter extends ArrayAdapter<EventItem> {
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = context.getLayoutInflater();
+        @SuppressLint({"ViewHolder", "InflateParams"})
         View listviewitem = layoutInflater.inflate(R.layout.event_item, null, true);
         TextView textView = listviewitem.findViewById(R.id.txtDate);
         TextView textView1 = listviewitem.findViewById(R.id.txtLocation);
         TextView textView2 = listviewitem.findViewById(R.id.txtEvent);
-        imageView = listviewitem.findViewById(R.id.imageView1);
+        ImageView imageView = listviewitem.findViewById(R.id.imageView1);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +56,7 @@ public class EventsAdapter extends ArrayAdapter<EventItem> {
                 context.startActivity(intent);
             }
         });
-        event =eventList.get(position);
+        EventItem event = eventList.get(position);
         textView.setText(event.getDate1());
         textView1.setText( event.getLocation());
         textView2.setText(event.getName());

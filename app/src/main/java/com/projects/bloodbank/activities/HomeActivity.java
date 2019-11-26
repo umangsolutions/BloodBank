@@ -1,9 +1,6 @@
 package com.projects.bloodbank.activities;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.projects.bloodbank.utilities.ConstantValues;
 import com.projects.bloodbank.utilities.MyAppPrefsManager;
 
-public class Home1Activity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 LinearLayout donarLayout,chatLayout,eventsLayout;
 
     boolean doubleBackToExitPressedOnce = false;
@@ -30,7 +27,7 @@ LinearLayout donarLayout,chatLayout,eventsLayout;
         setContentView(R.layout.activity_home);
 
         overridePendingTransition(0,0);
-
+        ConstantValues.internetCheck(HomeActivity.this);
         donarLayout=(LinearLayout)findViewById(R.id.donarLayout);
         chatLayout=(LinearLayout)findViewById(R.id.chatLayout);
         eventsLayout=(LinearLayout)findViewById(R.id.eventsLayout);
@@ -74,12 +71,12 @@ LinearLayout donarLayout,chatLayout,eventsLayout;
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_settings) {
             // Set UserLoggedIn in MyAppPrefsManager
-            MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(Home1Activity.this);
+            MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(HomeActivity.this);
             myAppPrefsManager.setUserLoggedIn(false);
             // Set isLogged_in of ConstantValues
             ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
             FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(Home1Activity.this, LoginActivity.class));
+            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             finish();
             return true;
         }

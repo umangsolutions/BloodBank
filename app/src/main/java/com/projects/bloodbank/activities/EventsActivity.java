@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.projects.bloodbank.modals.EventItem;
 import com.projects.bloodbank.adapters.EventsAdapter;
+import com.projects.bloodbank.utilities.ConstantValues;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,6 +44,7 @@ ListView listView;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
+        ConstantValues.internetCheck(EventsActivity.this);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Events");

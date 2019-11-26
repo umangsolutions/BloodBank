@@ -4,10 +4,21 @@ package com.projects.bloodbank.utilities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.app.ShareCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.projects.bloodbank.R;
+import com.projects.bloodbank.receiver.NetworkStateChangeReceiver;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,6 +26,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.projects.bloodbank.receiver.NetworkStateChangeReceiver.IS_NETWORK_AVAILABLE;
 
 /**
  * ConstantValues contains some constant variables, used all over the App.
@@ -147,4 +160,25 @@ import java.util.regex.Pattern;
         return app_ver;
     }
 
+
+    public static void internetCheck(Activity context){
+        IntentFilter intentFilter = new IntentFilter(NetworkStateChangeReceiver.NETWORK_AVAILABLE_ACTION);
+        LocalBroadcastManager.getInstance(context).registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                boolean isNetworkAvailable = intent.getBooleanExtra(IS_NETWORK_AVAILABLE, false);
+                String networkStatus = isNetworkAvailable ? "Available" : "Not Available";
+
+                if (networkStatus.equals("Not Available"))
+                {
+                    Toast.makeText(context, "No Internet Found", Toast.LENGTH_LONG).show();
+
+                }
+                else {
+                    Toast.makeText(context, " Internet Found", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        }, intentFilter);
+    }
 }

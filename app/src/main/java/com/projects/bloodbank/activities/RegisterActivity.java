@@ -24,6 +24,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.projects.bloodbank.utilities.ConstantValues;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -48,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Register");
         progressDialog=new ProgressDialog(this);
+        ConstantValues.internetCheck(RegisterActivity.this);
         mAuth = FirebaseAuth.getInstance();
          database = FirebaseDatabase.getInstance();
          myRef = database.getReference("details");

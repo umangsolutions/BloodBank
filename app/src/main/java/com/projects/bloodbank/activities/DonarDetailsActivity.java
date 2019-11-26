@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.projects.bloodbank.modals.Details;
+import com.projects.bloodbank.utilities.ConstantValues;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Search Donor");
+        ConstantValues.internetCheck(DonarDetailsActivity.this);
         donarSend=(Button)findViewById(R.id.donarSend) ;
         donarSend.setOnClickListener(this);
         donarEdittext =(EditText)findViewById(R.id.donareditText) ;

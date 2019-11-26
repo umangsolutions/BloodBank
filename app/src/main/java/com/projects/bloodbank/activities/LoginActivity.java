@@ -1,13 +1,15 @@
 package com.projects.bloodbank.activities;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.os.Handler;
 import android.text.TextUtils;
@@ -19,14 +21,18 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.projects.bloodbank.R;
+import com.projects.bloodbank.receiver.NetworkStateChangeReceiver;
 import com.projects.bloodbank.utilities.ConstantValues;
 import com.projects.bloodbank.utilities.MyAppPrefsManager;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.projects.bloodbank.receiver.NetworkStateChangeReceiver.IS_NETWORK_AVAILABLE;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
     EditText etMobile,etPassword;
@@ -38,6 +44,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     MyAppPrefsManager myAppPrefsManager;
     boolean doubleBackToExitPressedOnce = false;
 
+    Snackbar snackbar;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +55,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
         progressDialog=new ProgressDialog(this);
         myAppPrefsManager= new MyAppPrefsManager(LoginActivity.this);
+        ConstantValues.internetCheck(LoginActivity.this);
+
+
       /*  authStateListener=new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(firebaseAuth.getCurrentUser()!=null){
-                    startActivity(new Intent(LoginActivity.this,Home1Activity.class));
+                    startActivity(new Intent(LoginActivity.this,HomeActivity.class));
                     //Toast.makeText(LoginActivity.this, "hi", Toast.LENGTH_SHORT).show();
 
                 }
@@ -135,7 +148,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                             progressDialog.dismiss();
                             finish();
 
-                            startActivity(new Intent(getApplicationContext(),Home1Activity.class));
+                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
 
 
                         }

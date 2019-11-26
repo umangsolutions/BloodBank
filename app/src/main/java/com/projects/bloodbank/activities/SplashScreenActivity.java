@@ -10,9 +10,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +25,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.projects.bloodbank.R;
 import com.projects.bloodbank.utilities.ConstantValues;
+import com.projects.bloodbank.utilities.DetectConnection;
 import com.projects.bloodbank.utilities.MyAppPrefsManager;
 
 import java.util.ArrayList;
@@ -38,6 +44,10 @@ public class SplashScreenActivity extends Activity {
         super.onPause();
 
     }
+    Button tryAgain;
+    ImageView splashImage;
+    TextView errorText;
+    LinearLayout internetNotAvailable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,22 +59,71 @@ public class SplashScreenActivity extends Activity {
 //        Objects.requireNonNull(getSupportActionBar()).hide();
         progressBar = findViewById(R.id.progressBar);
         myAppPrefsManager=new MyAppPrefsManager(this);
-        //progressBar.setVisibility(View.VISIBLE);
+        tryAgain=findViewById(R.id.tryAgain);
+        splashImage=findViewById(R.id.splashImage);
+        errorText=findViewById(R.id.errorText);
+        internetNotAvailable=findViewById(R.id.internetNotAvailable);
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        // Check the internet and get response from API's
+        if (DetectConnection.checkInternetConnection(getApplicationContext())) {
+            // Start MyTask after 3 seconds
+            //progressBar.setVisibility(View.VISIBLE);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        // Marshmallow+
+                        SplashScreenActivity.this.permissioncheck();
+
+                    } else {
+                        // Pre-Marshmallow
+                        SplashScreenActivity.this.LaunchApp();
+                    }
+                }
+            }, 3000);
+        } else {
+            errorText.setText(getString(R.string.no_internet_connection_available));
+            internetNotAvailable.setVisibility(View.VISIBLE);
+            splashImage.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+        }
+
+
+
+        tryAgain.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                if (Build.VERSION.SDK_INT >= 23) {
-                    // Marshmallow+
-                    SplashScreenActivity.this.permissioncheck();
+            public void onClick(View v) {
+                if (DetectConnection.checkInternetConnection(getApplicationContext())) {
+                    internetNotAvailable.setVisibility(View.GONE);
+                    splashImage.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
+                    // Start MyTask after 3 seconds
+                    //progressBar.setVisibility(View.VISIBLE);
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (Build.VERSION.SDK_INT >= 23) {
+                                // Marshmallow+
+                                SplashScreenActivity.this.permissioncheck();
 
+                            } else {
+                                // Pre-Marshmallow
+                                SplashScreenActivity.this.LaunchApp();
+                            }
+                        }
+                    }, 3000);
                 } else {
-                    // Pre-Marshmallow
-                    SplashScreenActivity.this.LaunchApp();
+                    errorText.setText(getString(R.string.no_internet_connection_available));
+                    internetNotAvailable.setVisibility(View.VISIBLE);
+                    splashImage.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
-        }, 3000);
+        });
+
+
 
     }
 
@@ -240,7 +299,7 @@ public class SplashScreenActivity extends Activity {
 
 
                     if (ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn()) {
-                        Intent intent = new Intent(getBaseContext(), Home1Activity.class);
+                        Intent intent = new Intent(getBaseContext(), HomeActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();

@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">BloodBank</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="links">links</string>
+
+    <array name="blood">
+        <item>Select Your Blood Group</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </array>
+    <string-array name="links">
+        <item> http://rotarybloodbank.org/</item>
+        <item>http://www.indianblooddonors.in/</item>
+        <item>http://indianbloodbank.com/</item>
+        <item>http://www.bloodbankonline.org/</item>
+       <item>http://www.blooddonator.com/</item>
+    </string-array>
+</resources>
+

@@ -1,4 +1,4 @@
-package com.evolutyzitservices.projects.bloodbank2.DonarDetails;
+package com.projects.bloodbank.donardetails;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -11,7 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.evolutyzitservices.projects.bloodbank2.R;
+import com.projects.bloodbank.R;
 
 import java.util.ArrayList;
 import java.util.List;

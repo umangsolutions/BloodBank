@@ -1,4 +1,4 @@
-package com.evolutyzitservices.projects.bloodbank2;
+package com.projects.bloodbank;
 
 import com.google.firebase.database.FirebaseDatabase;
 

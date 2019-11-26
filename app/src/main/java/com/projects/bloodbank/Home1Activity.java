@@ -1,4 +1,4 @@
-package com.evolutyzitservices.projects.bloodbank2;
+package com.projects.bloodbank;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,9 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.evolutyzitservices.projects.bloodbank2.ChatMessage.ChatActivity;
-import com.evolutyzitservices.projects.bloodbank2.DonarDetails.DonarDetailsActivity;
-import com.evolutyzitservices.projects.bloodbank2.EventActivities.EventsActivity;
+import com.projects.bloodbank.chatmessage.ChatActivity;
+import com.projects.bloodbank.donardetails.DonarDetailsActivity;
+import com.projects.bloodbank.eventactivities.EventsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Home1Activity extends AppCompatActivity implements View.OnClickListener {

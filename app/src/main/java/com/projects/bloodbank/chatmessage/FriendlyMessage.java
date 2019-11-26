@@ -1,4 +1,4 @@
-package com.evolutyzitservices.projects.bloodbank2.ChatMessage;
+package com.projects.bloodbank.chatmessage;
 
 /**
  * Created by evolutyz on 21/02/18.

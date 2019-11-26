@@ -1,4 +1,4 @@
-package com.evolutyzitservices.projects.bloodbank2.EventActivities;
+package com.projects.bloodbank.eventactivities;
 
 /**
  * Created by USER on 2/20/2018.

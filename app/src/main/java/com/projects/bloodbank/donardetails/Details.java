@@ -1,4 +1,4 @@
-package com.evolutyzitservices.projects.bloodbank2.DonarDetails;
+package com.projects.bloodbank.donardetails;
 
 /**
  * Created by DELL on 20-02-2018.

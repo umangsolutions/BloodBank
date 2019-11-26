@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.evolutyzitservices.projects.bloodbank2"
+        applicationId "com.projects.bloodbank"
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1

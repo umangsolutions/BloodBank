@@ -1,4 +1,4 @@
-package com.evolutyzitservices.projects.bloodbank2;
+package com.projects.bloodbank;
 
 import android.content.Intent;
 import android.net.Uri;

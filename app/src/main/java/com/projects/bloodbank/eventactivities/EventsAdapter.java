@@ -1,4 +1,4 @@
-package com.evolutyzitservices.projects.bloodbank2.EventActivities;
+package com.projects.bloodbank.eventactivities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.evolutyzitservices.projects.bloodbank2.R;
+import com.projects.bloodbank.R;
 
 import java.util.List;
 

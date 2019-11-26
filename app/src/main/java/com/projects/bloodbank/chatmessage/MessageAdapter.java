@@ -1,4 +1,4 @@
-package com.evolutyzitservices.projects.bloodbank2.ChatMessage;
+package com.projects.bloodbank.chatmessage;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.evolutyzitservices.projects.bloodbank2.R;
+import com.projects.bloodbank.R;
 
 import java.util.List;
 

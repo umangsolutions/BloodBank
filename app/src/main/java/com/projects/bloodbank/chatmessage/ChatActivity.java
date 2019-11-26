@@ -1,4 +1,4 @@
-package com.evolutyzitservices.projects.bloodbank2.ChatMessage;
+package com.projects.bloodbank.chatmessage;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.evolutyzitservices.projects.bloodbank2.R;
+import com.projects.bloodbank.R;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

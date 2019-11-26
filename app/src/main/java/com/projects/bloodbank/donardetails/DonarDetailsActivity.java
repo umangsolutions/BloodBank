@@ -1,4 +1,4 @@
-package com.evolutyzitservices.projects.bloodbank2.DonarDetails;
+package com.projects.bloodbank.donardetails;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,7 +25,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.evolutyzitservices.projects.bloodbank2.R;
+import com.projects.bloodbank.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

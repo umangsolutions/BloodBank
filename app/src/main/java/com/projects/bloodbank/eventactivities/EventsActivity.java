@@ -1,4 +1,4 @@
-package com.evolutyzitservices.projects.bloodbank2.EventActivities;
+package com.projects.bloodbank.eventactivities;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.evolutyzitservices.projects.bloodbank2.R;
+import com.projects.bloodbank.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

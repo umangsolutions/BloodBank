@@ -17,7 +17,7 @@ import com.projects.bloodbank.utilities.ConstantValues;
 import com.projects.bloodbank.utilities.MyAppPrefsManager;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
-LinearLayout donarLayout,chatLayout,eventsLayout;
+    LinearLayout donarLayout,chatLayout,eventsLayout;
 
     boolean doubleBackToExitPressedOnce = false;
 
@@ -27,12 +27,11 @@ LinearLayout donarLayout,chatLayout,eventsLayout;
         setContentView(R.layout.activity_home);
 
         overridePendingTransition(0,0);
+
         ConstantValues.internetCheck(HomeActivity.this);
         donarLayout=(LinearLayout)findViewById(R.id.donarLayout);
         chatLayout=(LinearLayout)findViewById(R.id.chatLayout);
         eventsLayout=(LinearLayout)findViewById(R.id.eventsLayout);
-
-
 
         donarLayout.setOnClickListener(this);
         chatLayout.setOnClickListener(this);

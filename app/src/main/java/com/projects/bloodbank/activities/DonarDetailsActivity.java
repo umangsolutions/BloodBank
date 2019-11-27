@@ -21,7 +21,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +62,8 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
 
     EditText donarEdittext;
     Button donarSend;
+    LinearLayout linearLayout;
+    RelativeLayout relativeLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +73,8 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
         getSupportActionBar().setTitle("Search Donor");
         ConstantValues.internetCheck(DonarDetailsActivity.this);
         donarSend=(Button)findViewById(R.id.donarSend) ;
+        linearLayout=(LinearLayout) findViewById(R.id.linearLayout) ;
+        relativeLayout=(RelativeLayout) findViewById(R.id.relativeLayout) ;
         donarSend.setOnClickListener(this);
         donarEdittext =(EditText)findViewById(R.id.donareditText) ;
         donarEdittext.addTextChangedListener(new TextWatcher() {
@@ -109,12 +115,14 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(View v) {
 
+                linearLayout.setVisibility(View.VISIBLE);
                 /*
                  * Set all the checkbox to True/False
                  */
                 for (int i = 0; i < count; i++) {
                     mChecked.put(i, checkBox_header.isChecked());
                 }
+
 
                 /*
                  * Update View
@@ -146,8 +154,13 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                             }
                             adapter=new CustomAdapter(DonarDetailsActivity.this,detailsList);
                             listView.setAdapter(adapter);
+                            if (detailsList.size()>0){
+                                relativeLayout.setVisibility(View.VISIBLE);
+
+                            }
                         }
                         else{
+                            relativeLayout.setVisibility(View.GONE);
                             Toast.makeText(DonarDetailsActivity.this, "No Blood Group Found", Toast.LENGTH_SHORT).show();
                             listView.setAdapter(null);
                         }
@@ -282,7 +295,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                             if (isChecked) {
-
+                                linearLayout.setVisibility(View.VISIBLE);
 
                                 /* * Saving Checked Position*/
 
@@ -293,7 +306,11 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                                /*  * Find if all the check boxes are true*/
 
                                 if (isAllValuesChecked()) {
+                                    linearLayout.setVisibility(View.VISIBLE);
 
+                                    donarEdittext.setClickable(true);
+                                    donarEdittext.setFocusable(true);
+                                    donarEdittext.setFocusable(true);
                                     Log.e("CONDITION",""+isAllValuesChecked());
                                     checkBox_header.setChecked(isChecked);
 
@@ -305,6 +322,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
 
                             } else {
 
+                                linearLayout.setVisibility(View.GONE);
 
                                 /* * Removed UnChecked Position*/
 

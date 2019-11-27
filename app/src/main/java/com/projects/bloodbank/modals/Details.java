@@ -12,6 +12,7 @@ public class Details {
     private String password1;
     private String blood;
     private String pincode;
+    private String lastDate;
 
     public Details(String id, String name, String email, String number, String password, String blood, String pincode) {
         this.id = id;
@@ -21,6 +22,25 @@ public class Details {
         this.password1 = password;
         this.blood = blood;
         this.pincode = pincode;
+    }
+
+    public Details(String id, String name, String email, String number, String password1, String blood, String pincode, String lastDate) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.number = number;
+        this.password1 = password1;
+        this.blood = blood;
+        this.pincode = pincode;
+        this.lastDate = lastDate;
+    }
+
+    public String getLastDate() {
+        return lastDate;
+    }
+
+    public void setLastDate(String lastDate) {
+        this.lastDate = lastDate;
     }
 
     public Details() {

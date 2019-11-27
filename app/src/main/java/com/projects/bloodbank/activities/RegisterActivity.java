@@ -41,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
     DatabaseReference myRef;
     TextView textView;
     FirebaseAuth firebaseAuth ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,7 +169,8 @@ public class RegisterActivity extends AppCompatActivity {
         if (!name.isEmpty() && !pincode.isEmpty() && isValidPincode(pincode) && !email.isEmpty() &&isValidEmail(email)  && !number.isEmpty() &&isValidNumber(number) && !password.isEmpty() && isValidPassword(password) && !bloodgroup.equals("Select Your Blood Group") ) {
 
             String id = myRef.push().getKey();
-            Details details = new Details(id, name,email,number,password,bloodgroup,pincode);
+            String lastDate = "";
+            Details details = new Details(id, name,email,number,password,bloodgroup,pincode,lastDate);
             myRef.child(id).setValue(details);
             progressDialog.setMessage("Please Wait");
             progressDialog.show();

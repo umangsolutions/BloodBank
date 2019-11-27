@@ -103,7 +103,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         return matcher.matches();
     }
     public void onClick(View V){
-        String email=etMobile.getText().toString().trim();
+        final String email=etMobile.getText().toString().trim();
         if (!isValidEmail(email)) {
             etMobile.setError("Invalid Email");
         }
@@ -141,6 +141,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         
                         else {
                             myAppPrefsManager.setUserLoggedIn(true);
+                            myAppPrefsManager.setUserName(email);
 
                             // Set isLogged_in of ConstantValues
                             ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();

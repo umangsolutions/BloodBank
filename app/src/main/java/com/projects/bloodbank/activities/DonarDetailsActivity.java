@@ -308,9 +308,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                                 if (isAllValuesChecked()) {
                                     linearLayout.setVisibility(View.VISIBLE);
 
-                                    donarEdittext.setClickable(true);
-                                    donarEdittext.setFocusable(true);
-                                    donarEdittext.setFocusable(true);
+                                    
                                     Log.e("CONDITION",""+isAllValuesChecked());
                                     checkBox_header.setChecked(isChecked);
 

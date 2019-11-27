@@ -95,6 +95,7 @@ ListView listView;
                         textViewUE.setText("Date :"+" "+""+(month +1) + "/" + dayOfMonth + "/" + year);
                     }
                 }, mYear, mMonth, mDay);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
             }
         });

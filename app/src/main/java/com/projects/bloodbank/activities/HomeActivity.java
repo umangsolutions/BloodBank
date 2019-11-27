@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,15 +23,18 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.projects.bloodbank.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.projects.bloodbank.modals.Details;
 import com.projects.bloodbank.utilities.ConstantValues;
 import com.projects.bloodbank.utilities.MyAppPrefsManager;
+import com.projects.bloodbank.modals.Details;
+
+
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     LinearLayout donarLayout,chatLayout,eventsLayout;
 
     boolean doubleBackToExitPressedOnce = false;
-    EditText lastDate;
+    //EditText lastDate;
+    TextView lastDate;
     FirebaseDatabase database;
     DatabaseReference myRef;
     Button save;
@@ -57,7 +61,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         donarLayout=(LinearLayout)findViewById(R.id.donarLayout);
         chatLayout=(LinearLayout)findViewById(R.id.chatLayout);
         eventsLayout=(LinearLayout)findViewById(R.id.eventsLayout);
-        lastDate=(EditText) findViewById(R.id.lastDate);
+        lastDate=(TextView) findViewById(R.id.lastDate);
         save=(Button) findViewById(R.id.save);
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("details");

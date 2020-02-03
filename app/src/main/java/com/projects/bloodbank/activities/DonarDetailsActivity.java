@@ -113,24 +113,24 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
         relativeLayout=(RelativeLayout) findViewById(R.id.relativeLayout) ;
         donarSend.setOnClickListener(this);
         donarEdittext =(EditText)findViewById(R.id.donareditText);
-//        donarEdittext.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if (charSequence.toString().trim().length() > 0) {
-//                    donarSend.setEnabled(true);
-//                } else {
-//                    donarSend.setEnabled(false);
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//            }
-//        });
+        donarEdittext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().trim().length() > 0) {
+                    donarSend.setEnabled(true);
+                } else {
+                    donarSend.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
 
         listView=findViewById(R.id.listdonar);
@@ -224,12 +224,14 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                                 relativeLayout.setVisibility(View.VISIBLE);
                                 //donarSend.setEnabled(true);
 
+
                             }
                         }
                         else{
                             relativeLayout.setVisibility(View.GONE);
                             Toast.makeText(DonarDetailsActivity.this, "No Blood Group Found", Toast.LENGTH_SHORT).show();
                             listView.setAdapter(null);
+                            //donarEdittext.setEnabled(false);
                         }
 
                     }
@@ -269,14 +271,15 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
 
                 }
                 phonnoList.clear();
-                toNumbers = toNumbers.substring(0, toNumbers.length() - 1);
-                String message = "this is a custom message";
-
-                Uri sendSmsTo = Uri.parse("smsto:" + toNumbers);
-                Intent intent = new Intent(
-                        Intent.ACTION_SENDTO, sendSmsTo);
-                intent.putExtra("sms_body", donarMessage);
-                startActivity(intent);
+                if (!toNumbers.isEmpty()) {
+                    toNumbers = toNumbers.substring(0, toNumbers.length() - 1);
+                    String message = "this is a custom message";
+                    Uri sendSmsTo = Uri.parse("smsto:" + toNumbers);
+                    Intent intent = new Intent(
+                            Intent.ACTION_SENDTO, sendSmsTo);
+                    intent.putExtra("sms_body", donarMessage);
+                    startActivity(intent);
+                }
             }
         }
 
@@ -365,28 +368,32 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                             if (isChecked) {
                                 linearLayout.setVisibility(View.VISIBLE);
                                 donarSend.setEnabled(true);
+                                //donarEdittext.setFocusableInTouchMode(true);
                                 /* * Saving Checked Position*/
                                 mChecked.put(position, isChecked);
-                                checkBox_header.setChecked(isChecked);
+//                                checkBox_header.setChecked(isChecked);
                                 phonnoList.add(detailsList.get(position).getNumber());
-                            }
-                               /*  * Find if all the check boxes are true*/
+
+                                /*  * Find if all the check boxes are true*/
                                 if (isAllValuesChecked()) {
                                     linearLayout.setVisibility(View.VISIBLE);
-                                    mChecked.put(position, isChecked);
+                                    //mChecked.put(position, isChecked);
+                                    //donarEdittext.setFocusableInTouchMode(true);
                                     Log.e("CONDITION", "" + isAllValuesChecked());
                                     checkBox_header.setChecked(isChecked);
                                     phonnoList.add(detailsList.get(position).getNumber());
                                 }
-//                                } else {
-//                                linearLayout.setVisibility(View.VISIBLE);
-//                                /* * Removed UnChecked Position*/
-//                                mChecked.delete(position);
-//                                phonnoList.remove(detailsList.get(position).getNumber());
-//                               /*  * Remove Checked in Header*/
-//                                checkBox_header.setChecked(true);
-//
-//                            }
+
+                            }
+                             else {
+                                linearLayout.setVisibility(View.VISIBLE);
+                                /* * Removed UnChecked Position*/
+                                mChecked.delete(position);
+                                phonnoList.remove(detailsList.get(position).getNumber());
+                               /*  * Remove Checked in Header*/
+                                checkBox_header.setChecked(false);
+
+                            }
 
                         }
                     });

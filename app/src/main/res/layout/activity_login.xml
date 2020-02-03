@@ -64,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:ems="10"
+                    android:ems="01"
                     android:inputType="textPassword"
                     android:hint="@string/enter_password"
                     android:padding="10dp"
@@ -91,6 +91,14 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:layout_marginTop="10dp"/>
+            <TextView
+                android:id="@+id/forgot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Forgot Password ? Click here"
+                android:gravity="center"
+                android:padding="8dp"
+                android:layout_marginTop="10dp"/>
 
 
 
@@ -101,7 +109,7 @@
             android:layout_height="80dp"
             android:padding="10dp"
             android:layout_gravity="center|top"
-            android:src="@drawable/splash_icon"
+            android:src="@drawable/ico"
             android:background="@drawable/circlershape"
             android:contentDescription="@string/app_name" />
     </FrameLayout>

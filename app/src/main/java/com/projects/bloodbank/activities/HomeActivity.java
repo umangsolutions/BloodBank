@@ -1,5 +1,8 @@
 package com.projects.bloodbank.activities;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,16 +26,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.projects.bloodbank.LastDate;
 import com.projects.bloodbank.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.projects.bloodbank.utilities.ConstantValues;
 import com.projects.bloodbank.utilities.MyAppPrefsManager;
 import com.projects.bloodbank.modals.Details;
 
+import java.util.Calendar;
 
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
-    LinearLayout donarLayout,chatLayout,eventsLayout;
+    LinearLayout donarLayout,chatLayout,eventsLayout,updatelayout;
 
     boolean doubleBackToExitPressedOnce = false;
     //EditText lastDate;
@@ -61,14 +68,35 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         donarLayout=(LinearLayout)findViewById(R.id.donarLayout);
         chatLayout=(LinearLayout)findViewById(R.id.chatLayout);
         eventsLayout=(LinearLayout)findViewById(R.id.eventsLayout);
-        lastDate=(TextView) findViewById(R.id.lastDate);
-        save=(Button) findViewById(R.id.save);
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("details");
+        updatelayout = (LinearLayout)findViewById(R.id.updatedate);
+//        //lastDate=(EditText) findViewById(R.id.lastDate);
+//        lastDate=(TextView) findViewById(R.id.lastDate);
+//        save=(Button) findViewById(R.id.save);
+//        database = FirebaseDatabase.getInstance();
+//        myRef = database.getReference("details");
         donarLayout.setOnClickListener(this);
         chatLayout.setOnClickListener(this);
-        eventsLayout.setOnClickListener(this);
-        save.setOnClickListener(this);
+       eventsLayout.setOnClickListener(this);
+       updatelayout.setOnClickListener(this);
+//        final ImageView imageViewuE=(ImageView)findViewById(R.id.imageViewup);
+//        imageViewuE.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Calendar c = Calendar.getInstance();
+//                int mYear = c.get(Calendar.YEAR);
+//                int mMonth = c.get(Calendar.MONTH);
+//                int mDay = c.get(Calendar.DAY_OF_MONTH);
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(HomeActivity.this, new DatePickerDialog.OnDateSetListener() {
+//                    @SuppressLint("SetTextI18n")
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                        lastDate.setText(""+(month +1) + "/" + dayOfMonth + "/" + year);
+//                    }
+//                }, mYear, mMonth, mDay);
+//                datePickerDialog.show();
+//            }
+//        });
+//        //save.setOnClickListener(this);
 
 
 
@@ -78,38 +106,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
 
-            case R.id.save:
-
-
-                Query query = myRef.orderByChild("email").equalTo(email);
-                query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        if (dataSnapshot.exists()) {
-                            for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                                // do something with the individual "issues"
-                                Details details=issue.getValue(Details.class);
-                                id=""+details.getId();
-                                name=""+details.getName();
-                                number=""+details.getNumber();
-                                password1=""+details.getPassword1();
-                                blood=""+details.getBlood();
-                                pincode=""+details.getPincode();
-                            }
-                            lastDate1=lastDate.getText().toString().trim();
-                            Details details = new Details(id,name,email,number,password1,blood,pincode,lastDate1);
-                            myRef.child(id).setValue(details);
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-                break;
             case R.id.donarLayout:
                 startActivity(new Intent(this,DonarDetailsActivity.class));
                 break;
@@ -120,6 +116,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.eventsLayout:
                 startActivity(new Intent(this,EventsActivity.class));
+                break;
+            case R.id.updatedate:
+                startActivity(new Intent(HomeActivity.this, LastDate.class));
                 break;
 
         }

@@ -49,7 +49,7 @@ public class ChatActivity extends AppCompatActivity {
 
     FirebaseUser firebaseAuth;
     FirebaseAuth.AuthStateListener authStateListener;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,7 +152,6 @@ public class ChatActivity extends AppCompatActivity {
                 FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
                 if (firebaseUser !=null)
                 {
-
                     Toast.makeText(ChatActivity.this,"welcome", Toast.LENGTH_LONG).show();
                 }
                 else

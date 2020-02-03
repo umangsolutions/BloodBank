@@ -130,13 +130,13 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp">
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etAddress"
+                        android:id="@+id/etAge"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:maxLength="6"
+                        android:maxLength="2"
                         android:inputType="number"
-                        android:hint="@string/enter_pin_code"
+                        android:hint="Enter Age"
                         android:padding="10dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -159,17 +159,13 @@
                     android:gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:padding="5dp"/>
-
-
-
             </LinearLayout>
-
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:padding="10dp"
                 android:layout_gravity="center|top"
-                android:src="@drawable/splash_icon"
+                android:src="@drawable/ico"
                 android:background="@drawable/circlershape"
                 android:contentDescription="@string/app_name" />
         </FrameLayout>

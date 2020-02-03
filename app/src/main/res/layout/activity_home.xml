@@ -183,35 +183,98 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/save"
-            android:text="save"/>-->
+-            android:text="save"/>&ndash;&gt;-->
+<!--     <androidx.cardview.widget.CardView-->
+<!--         android:layout_width="match_parent"-->
+<!--         android:layout_height="wrap_content"-->
+<!--         app:cardCornerRadius="5dp"-->
+<!--         app:cardElevation="3dp"-->
+<!--         app:cardUseCompatPadding="true">-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_marginTop="30dp">-->
+<!--                <TextView-->
+<!--                    android:layout_width="300dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="Last Blood Donation Date"-->
+<!--                    android:id="@+id/lastDate"-->
+<!--                    android:inputType="text"-->
+<!--                    android:paddingLeft="10dp"-->
+<!--                    android:textSize="20sp"/>-->
+<!--            <ImageView-->
+<!--                android:id="@+id/imageViewup"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="0.5"-->
+<!--                android:src="@drawable/ic_date_range_black_36dp"-->
+<!--                android:contentDescription="@string/app_name" />-->
+<!--        </LinearLayout>-->
+<!--        <Button-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="70dp"-->
+<!--            android:id="@+id/save"-->
+<!--            android:text="save"-->
+<!--            android:gravity="center"/>-->
+<!--     </androidx.cardview.widget.CardView>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp">
-
-                <TextView
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Last Blood Donation Date"
-                    android:id="@+id/lastDate"
-                    android:inputType="text"
-                    android:textSize="20sp"/>
-            <ImageView
-                android:id="@+id/imageViewup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:src="@drawable/ic_date_range_black_36dp"
-                android:contentDescription="@string/app_name" />
-        </LinearLayout>
-
-        <Button
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/save"
-            android:text="save"/>
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:id="@+id/updatedate"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_margin="5dp"
+                android:background="#4CAF50"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_date_range_black_24dp"
+                    android:contentDescription="@string/app_name" />
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/white" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/updatedate1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Last Blood Donation"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:layout_marginLeft="8dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+
 
     </LinearLayout>
-</ScrollView>
+
+
+    </ScrollView>

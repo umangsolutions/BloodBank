@@ -27,7 +27,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:15.0.2'
     //noinspection GradleDependency,GradleCompatible
-
+    implementation 'joda-time:joda-time:2.10.5'
     implementation 'com.google.firebase:firebase-messaging:15.0.2'
     //noinspection GradleDependency,GradleCompatible
 

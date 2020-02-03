@@ -26,15 +26,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.projects.bloodbank.utilities.ConstantValues;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText etFullName,etMobile,etEmail,etPassword,etAddress;
-    String name,email,number,password,bloodgroup,pincode;
+    String name,email,number,password,bloodgroup,age;
     Button btnSave;
     Spinner spinner;
+    String date,date1;
     private FirebaseAuth mAuth;
     ProgressDialog progressDialog;
     FirebaseDatabase database;
@@ -71,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
         etMobile = (EditText) findViewById(R.id.etMobile);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
-        etAddress = (EditText) findViewById(R.id.etAddress);
+        etAddress = (EditText) findViewById(R.id.etAge);
         textView=findViewById(R.id.txtLogin);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
                 name=etFullName.getText().toString().trim();
                 email =etEmail.getText().toString().trim();
                 number =etMobile.getText().toString().trim();
-                pincode =etAddress.getText().toString().trim();
+                age =etAddress.getText().toString().trim();
                 bloodgroup=spinner.getSelectedItem().toString();
                 password =etPassword.getText().toString().trim();
                 if (TextUtils.isEmpty(name)) {
@@ -104,8 +109,8 @@ public class RegisterActivity extends AppCompatActivity {
                     etMobile.setError("Invalid Number");
                 }
 
-                if (!isValidPincode(pincode)) {
-                    etAddress.setError("Invalid Pincode");
+                if (Integer.parseInt(age)<18) {
+                    etAddress.setError("Age should be more than 18 years");
                 }
 
                 if (!isValidPassword(password)) {
@@ -166,11 +171,31 @@ public class RegisterActivity extends AppCompatActivity {
     private void saveDate(){
 
 
-        if (!name.isEmpty() && !pincode.isEmpty() && isValidPincode(pincode) && !email.isEmpty() &&isValidEmail(email)  && !number.isEmpty() &&isValidNumber(number) && !password.isEmpty() && isValidPassword(password) && !bloodgroup.equals("Select Your Blood Group") ) {
+        if (!name.isEmpty() && !age.isEmpty()  && !email.isEmpty() &&isValidEmail(email)  && !number.isEmpty() &&isValidNumber(number) && !password.isEmpty() && isValidPassword(password) && !bloodgroup.equals("Select Your Blood Group") ) {
 
+
+            Date cd = Calendar.getInstance().getTime();
+            System.out.println("Current time => " + cd);
+            SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+            date = df.format(cd);
+            //String dateInString = "2011-09-13";  // Start date
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+            Calendar c = Calendar.getInstance(); // Get Calendar Instance
+            try {
+                c.setTime(sdf.parse(date));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            c.add(Calendar.DATE, -90);  // add 45 days
+            sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+            Date resultdate = new Date(c.getTimeInMillis());   // Get new time
+            date1 = sdf.format(resultdate);
+            System.out.println("String date:"+date1);
             String id = myRef.push().getKey();
             String lastDate = "";
-            Details details = new Details(id, name,email,number,password,bloodgroup,pincode,lastDate);
+            Details details = new Details(id, name,email,number,password,bloodgroup,age,lastDate,date1);
             myRef.child(id).setValue(details);
             progressDialog.setMessage("Please Wait");
             progressDialog.show();
@@ -182,7 +207,6 @@ public class RegisterActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
                                 finish();
-
                             }
                             else {
                                 Toast.makeText(RegisterActivity.this, "Email Already Exists.",

@@ -43,9 +43,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     ProgressDialog progressDialog;
     MyAppPrefsManager myAppPrefsManager;
     boolean doubleBackToExitPressedOnce = false;
-
     Snackbar snackbar;
-
 
 
     @Override
@@ -83,7 +81,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 Intent register = new Intent(LoginActivity.this, RegisterActivity.class);
                 register.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(register);
-
+            }
+        });
+        findViewById(R.id.forgot).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,ResetPassword.class));
             }
         });
     }

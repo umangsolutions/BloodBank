@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -41,6 +43,7 @@ public class LastDate extends AppCompatActivity {
     private String pincode;
     private String lastDate1;
     MyAppPrefsManager myAppPrefsManager;
+    private int flag=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,7 @@ public class LastDate extends AppCompatActivity {
         save=(Button) findViewById(R.id.save);
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("details");
+        save.setEnabled(false);
         final ImageView imageViewuE=(ImageView)findViewById(R.id.imageViewup);
         imageViewuE.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +80,19 @@ public class LastDate extends AppCompatActivity {
                 }, mYear, mMonth, mDay);
                 datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
                 datePickerDialog.show();
+                save.setEnabled(true);
             }
         });
 
-        findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
+        if(lastDate.equals("Last Blood Donation Date")) {
+            Toast.makeText(this, "Please choose Date !", Toast.LENGTH_SHORT).show();
+        }
+        else
+            {
+            findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Query query = myRef.orderByChild("email").equalTo(email);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -102,6 +113,7 @@ public class LastDate extends AppCompatActivity {
                             Details details = new Details(id,name,email,number,password1,blood,pincode,lastDate1,lastDate1);
                             myRef.child(id).setValue(details);
                             Toast.makeText(LastDate.this,"Blood Donation Date Updated",Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                         }
                     }
                     @Override
@@ -111,6 +123,15 @@ public class LastDate extends AppCompatActivity {
                 });
             }
         });
-
+        }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {//finish();
+            onBackPressed();
+        }
+        return true;
+    }
+
 }

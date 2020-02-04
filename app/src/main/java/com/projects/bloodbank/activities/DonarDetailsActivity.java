@@ -65,6 +65,12 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
     private static boolean isNotAdded = true;
     private CheckBox checkBox_header;
     private long diff;
+    private long secondsInMilli;
+    private long minutesInMilli;
+    private long hoursInMilli;
+    private long daysInMilli;
+    private long elapsedDays;
+
     private ArrayList<String> phonnoList=new ArrayList<>();
     /**
      * To save checked items, and <b>re-add</b> while scrolling.
@@ -186,33 +192,46 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                                 // do something with the individual "issues"
                                 Details details = issue.getValue(Details.class);
                                 String lastdate = issue.getValue(Details.class).getLastDate();
-                                String setdate = issue.getValue(Details.class).getSetDate().toString();
+//                                String setdate = issue.getValue(Details.class).getSetDate().toString();
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
                                 Date cd = Calendar.getInstance().getTime();
+
+
+
                                 System.out.println("Current time => " + cd);
+                                Toast.makeText(DonarDetailsActivity.this, ""+cd, Toast.LENGTH_SHORT).show();
                                 SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
                                 String currdate = df.format(cd);
 
-                                try {
-                                    Date date = dateFormat.parse(lastdate);
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
+//                                try {
+//                                    Date lastdat = dateFormat.parse(lastdate);
+//                                } catch (ParseException e) {
+//                                    e.printStackTrace();
+//                                }
+                                //Date last = dateFormat.parse(lastdate);
+
                                 //int days = Days.daysBetween(new LocalDate(lastdate),new LocalDate(setdate)).getDays();
                                 SimpleDateFormat myFormat = new SimpleDateFormat("MM/dd/yyyy");
 
                                 try {
-                                    Date date1 = myFormat.parse(lastdate);
-                                    Date date2 = myFormat.parse(currdate);
-                                    diff = date2.getTime() - date1.getTime();
+                                     Date ldate = myFormat.parse(lastdate);
+//                                    Date date2 = myFormat.parse(currdate);
+                                    diff = cd.getTime() - ldate.getTime() ;
+                                    secondsInMilli = 1000;
+                                    minutesInMilli = secondsInMilli * 60;
+                                    hoursInMilli = minutesInMilli * 60;
+                                    daysInMilli = hoursInMilli * 24;
+                                    elapsedDays = diff / daysInMilli;
                                     System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
-
-                                if(diff > 93 || lastdate.isEmpty())
-                                detailsList.add(details);
+                                if(lastdate.isEmpty())
+                                    detailsList.add(details);
+                                else if(Math.abs(elapsedDays) > 93 ) {
+                                    detailsList.add(details);
+                                }
                                 else {
                                     //Toast.makeText(DonarDetailsActivity.this, "" + diff, Toast.LENGTH_SHORT).show();
                                     //Toast.makeText(DonarDetailsActivity.this, "No Blood Group Found", Toast.LENGTH_SHORT).show();

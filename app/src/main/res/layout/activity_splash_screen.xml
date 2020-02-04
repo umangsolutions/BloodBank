@@ -52,7 +52,7 @@
           android:layout_gravity="center"
           android:layout_marginTop="10dp"
           android:backgroundTint="@color/colorPrimary"
-          android:text="Try Agian"
+          android:text="Try Again"
           android:textColor="@color/white" />
 
    </LinearLayout>

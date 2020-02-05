@@ -200,7 +200,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
 
 
                                 System.out.println("Current time => " + cd);
-                                Toast.makeText(DonarDetailsActivity.this, ""+cd, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(DonarDetailsActivity.this, ""+cd, Toast.LENGTH_SHORT).show();
                                 SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
                                 String currdate = df.format(cd);
 
@@ -223,7 +223,8 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                                     hoursInMilli = minutesInMilli * 60;
                                     daysInMilli = hoursInMilli * 24;
                                     elapsedDays = diff / daysInMilli;
-                                    System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+
+                                    //System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }

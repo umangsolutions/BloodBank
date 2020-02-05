@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:padding="16dp"
-    android:background="@color/colorPrimary">
+    android:background="@drawable/backgroundcolor">
 
 
 
@@ -36,7 +36,7 @@
                     android:textStyle="bold"
                     android:textSize="24sp"
                     android:gravity="center_horizontal"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/red"
                     />
 
 
@@ -148,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/sign_up"
                     android:layout_marginTop="15dp"
-                    android:background="@color/colorAccent"
+                    android:background="@drawable/backgroundcolor"
                     android:textColor="@android:color/white"/>
 
                 <TextView

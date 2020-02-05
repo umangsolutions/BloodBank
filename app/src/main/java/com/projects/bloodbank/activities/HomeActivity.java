@@ -3,6 +3,7 @@ package com.projects.bloodbank.activities;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -38,6 +40,7 @@ import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     LinearLayout donarLayout,chatLayout,eventsLayout,updatelayout;
+    Dialog dialog;
 
     boolean doubleBackToExitPressedOnce = false;
     //EditText lastDate;
@@ -53,6 +56,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private String blood;
     private String pincode;
     private String lastDate1;
+    private Button closebtn;
     MyAppPrefsManager myAppPrefsManager;
 
     @Override
@@ -74,6 +78,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //        save=(Button) findViewById(R.id.save);
 //        database = FirebaseDatabase.getInstance();
 //        myRef = database.getReference("details");
+        CustomDialog();
         donarLayout.setOnClickListener(this);
         chatLayout.setOnClickListener(this);
        eventsLayout.setOnClickListener(this);
@@ -99,6 +104,26 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //        //save.setOnClickListener(this);
 
 
+
+    }
+
+    public void CustomDialog() {
+        dialog=new Dialog(HomeActivity.this);
+        dialog.setContentView(R.layout.customlayout);
+        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        closebtn=(Button)dialog.findViewById(R.id.close);
+
+        closebtn.setEnabled(true);
+
+        closebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
 
     }
 

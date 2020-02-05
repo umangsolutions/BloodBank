@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:hint="@string/select_date"
+            android:fontFamily="serif"
             android:textColor="#000"
             android:textSize="20sp" />
 
@@ -42,14 +43,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:text="@string/location"
+            android:fontFamily="serif"
             android:textColor="#000"
             android:textSize="20sp" />
-
         <EditText
             android:id="@+id/editLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="serif"
             android:inputType="textCapWords"
             tools:ignore="Autofill,LabelFor" />
     </LinearLayout>
@@ -78,6 +80,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/submit"
+            android:textColor="#fff"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/button_border_solid"
             tools:ignore="ButtonStyle" />
 
         <Button
@@ -85,6 +91,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="#fff"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/button_border_solid"
             android:text="@string/cancel"
             tools:ignore="ButtonStyle" />
     </LinearLayout>

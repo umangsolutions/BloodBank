@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.projects.bloodbank.R;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.projects.bloodbank.modals.Details;
 import com.projects.bloodbank.modals.FriendlyMessage;
 import com.projects.bloodbank.adapters.MessageAdapter;
 import com.projects.bloodbank.utilities.ConstantValues;
@@ -44,8 +48,9 @@ public class ChatActivity extends AppCompatActivity {
 
     String mUsername;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference,databaseReference1;
     ChildEventListener childEventListener;
+    String pemail,name;
 
     FirebaseUser firebaseAuth;
     FirebaseAuth.AuthStateListener authStateListener;
@@ -60,10 +65,29 @@ public class ChatActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Chat Room");
         firebaseAuth= FirebaseAuth.getInstance().getCurrentUser();
         assert firebaseAuth != null;
-        mUsername = firebaseAuth.getEmail();
+        pemail = firebaseAuth.getEmail();
+        //Toast.makeText(this, ""+pemail, Toast.LENGTH_SHORT).show();
         firebaseDatabase= FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference().child("messages");
+        databaseReference1= FirebaseDatabase.getInstance().getReference("details");
         databaseReference.keepSynced(true);
+
+        Query query = databaseReference1.orderByChild("email").equalTo(pemail);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    name = dataSnapshot1.getValue(Details.class).getName();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         // Initialize references to views
         ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         ListView mMessageListView = (ListView) findViewById(R.id.messageListView);
@@ -96,7 +120,6 @@ public class ChatActivity extends AppCompatActivity {
                     mSendButton.setEnabled(false);
                 }
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
             }
@@ -109,9 +132,8 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // TODO: Send messages on click
                 String text=mMessageEditText.getText().toString().trim();
-                FriendlyMessage friendlyMessage = new FriendlyMessage(text, mUsername);
+                FriendlyMessage friendlyMessage = new FriendlyMessage(text,name);
                 databaseReference.push().setValue(friendlyMessage);
-
                 // Clear input box
                 mMessageEditText.setText("");
             }
@@ -161,7 +183,7 @@ public class ChatActivity extends AppCompatActivity {
                                     .createSignInIntentBuilder()
                                     .setIsSmartLockEnabled(false)
                                     .setAvailableProviders(
-                                            Collections.singletonList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build()))
+                                            Collections.singletonList(new AuthUI.IdpConfig.EmailBuilder().build()))
                                     .build(),
                             RC_SIGN_IN);
                 }

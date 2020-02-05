@@ -17,7 +17,7 @@
 
         <TextView
             android:id="@+id/txtEvent"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/blood_donation_camp"
             android:textColor="@android:color/black"
@@ -28,18 +28,16 @@
 
     <TextView
         android:id="@+id/txtLocation"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/vizag"
         android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/txtDate"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/date_20_02_2018" />
-
-
     </LinearLayout>
 
     <ImageView

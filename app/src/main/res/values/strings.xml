@@ -35,6 +35,8 @@
     <string name="cancel">Cancel</string>
     <string name="signout">SignOut</string>
     <string name="no_internet_connection_available">No Internet Connection Available</string>
+    <string name="enter_location">Enter Location</string>
+    <string name="enter_description">Enter Description</string>
 
     <array name="blood">
         <item>Select Your Blood Group</item>

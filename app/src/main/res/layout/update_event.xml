@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:orientation="horizontal">
 
         <TextView
@@ -19,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:hint="@string/select_date"
+            android:fontFamily="@font/open_sans"
             android:textColor="#000"
             android:textSize="20sp" />
 
@@ -27,43 +29,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:src="@drawable/ic_date_range_black_36dp"
+            android:src="@drawable/ic_date_range_black_24dp"
             android:contentDescription="@string/app_name" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textViewLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:text="@string/location"
-            android:textColor="#000"
-            android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/editLocation"
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="textCapWords"
-            tools:ignore="Autofill,LabelFor" />
-    </LinearLayout>
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/colorPrimary"
+
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:id="@+id/editLocation"
+                android:hint="@string/enter_location"
+                android:padding="10dp"
+                android:enabled="false"
+                android:inputType="textCapWords"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
 
     <EditText
         android:id="@+id/eventupdate"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginTop="19dp"
-        android:ems="10"
+        android:layout_margin="5dp"
         android:background="@drawable/text"
+        android:ems="10"
+        android:padding="10dp"
+        android:enabled="false"
         android:gravity="top"
+        android:hint="@string/enter_description"
         android:inputType="textMultiLine|textCapWords" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,6 +79,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/submit"
+            android:textStyle="bold"
+            android:fontFamily="@font/open_sans"
+            android:textColor="#fff"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/button_border_solid"
             tools:ignore="ButtonStyle" />
 
         <Button
@@ -85,6 +92,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:fontFamily="@font/open_sans"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/button_border_solid"
             android:text="@string/cancel"
             tools:ignore="ButtonStyle" />
     </LinearLayout>

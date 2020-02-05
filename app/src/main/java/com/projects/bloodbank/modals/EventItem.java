@@ -9,8 +9,18 @@ public class EventItem {
     private String date1;
     private String location;
     private String name;
+    private String email;
+
 
     public EventItem() {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getId() {
@@ -45,10 +55,13 @@ public class EventItem {
         this.name = name;
     }
 
-    public EventItem(String id, String date1, String location, String name) {
+
+
+    public EventItem(String id, String date1, String location, String name, String email) {
         this.id = id;
         this.date1 = date1;
         this.location = location;
         this.name = name;
+        this.email = email;
     }
 }

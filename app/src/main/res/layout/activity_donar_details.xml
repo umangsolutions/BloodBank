@@ -81,6 +81,8 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:inputType="text"
+            android:fontFamily="serif"
+            android:textColor="#000"
             tools:ignore="Autofill" />
 
         <Button
@@ -89,6 +91,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:text="@string/send"
+            android:textColor="#fff"
+            android:background="@drawable/button_border_solid"
+
             />
 
     </LinearLayout>

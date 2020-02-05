@@ -111,8 +111,6 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
         System.out.println("String date:"+date1);
 
 
-
-
         Log.d("DATE1",date);
         donarSend=(Button)findViewById(R.id.donarSend) ;
         linearLayout=(LinearLayout) findViewById(R.id.linearLayout) ;
@@ -191,6 +189,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                             for (DataSnapshot issue : dataSnapshot.getChildren()) {
                                 // do something with the individual "issues"
                                 Details details = issue.getValue(Details.class);
+
                                 String lastdate = issue.getValue(Details.class).getLastDate();
 //                                String setdate = issue.getValue(Details.class).getSetDate().toString();
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -200,7 +199,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
 
 
                                 System.out.println("Current time => " + cd);
-                                Toast.makeText(DonarDetailsActivity.this, ""+cd, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(DonarDetailsActivity.this, ""+cd, Toast.LENGTH_SHORT).show();
                                 SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
                                 String currdate = df.format(cd);
 
@@ -223,7 +222,8 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                                     hoursInMilli = minutesInMilli * 60;
                                     daysInMilli = hoursInMilli * 24;
                                     elapsedDays = diff / daysInMilli;
-                                    System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+
+                                    //System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -242,13 +242,11 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                             if (detailsList.size()>0){
                                 relativeLayout.setVisibility(View.VISIBLE);
                                 //donarSend.setEnabled(true);
-
-
                             }
                         }
                         else{
                             relativeLayout.setVisibility(View.GONE);
-                            Toast.makeText(DonarDetailsActivity.this, "No Blood Group Found", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DonarDetailsActivity.this, "No Donor's Found", Toast.LENGTH_SHORT).show();
                             listView.setAdapter(null);
                             //donarEdittext.setEnabled(false);
                         }

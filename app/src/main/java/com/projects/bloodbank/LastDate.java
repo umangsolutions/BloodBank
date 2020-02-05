@@ -41,6 +41,7 @@ public class LastDate extends AppCompatActivity {
     private String password1;
     private String blood;
     private String pincode;
+    private String ldate;
     private String lastDate1;
     MyAppPrefsManager myAppPrefsManager;
     private int flag=0;
@@ -70,25 +71,23 @@ public class LastDate extends AppCompatActivity {
                 int mMonth = c.get(Calendar.MONTH);
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
                 DatePickerDialog datePickerDialog = new DatePickerDialog(LastDate.this, new DatePickerDialog.OnDateSetListener() {
-                //DatePicker.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    //DatePicker.getDatePicker().setMaxDate(System.currentTimeMillis());
 
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        lastDate.setText(""+(month +1) + "/" + dayOfMonth + "/" + year);
+                        lastDate.setText("" + (month + 1) + "/" + dayOfMonth + "/" + year);
                     }
                 }, mYear, mMonth, mDay);
-                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
-                datePickerDialog.show();
-                save.setEnabled(true);
+
+
+                    datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+                    datePickerDialog.show();
+                    save.setEnabled(true);
             }
         });
 
-        if(lastDate.equals("Last Blood Donation Date")) {
-            Toast.makeText(this, "Please choose Date !", Toast.LENGTH_SHORT).show();
-        }
-        else
-            {
+
             findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +101,7 @@ public class LastDate extends AppCompatActivity {
                             for (DataSnapshot issue : dataSnapshot.getChildren()) {
                                 // do something with the individual "issues"
                                 Details details=issue.getValue(Details.class);
+
                                 id=""+details.getId();
                                 name=""+details.getName();
                                 number=""+details.getNumber();
@@ -110,10 +110,15 @@ public class LastDate extends AppCompatActivity {
                                 pincode=""+details.getPincode();
                             }
                             lastDate1=lastDate.getText().toString().trim();
-                            Details details = new Details(id,name,email,number,password1,blood,pincode,lastDate1,lastDate1);
-                            myRef.child(id).setValue(details);
-                            Toast.makeText(LastDate.this,"Blood Donation Date Updated",Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                            if(!lastDate1.isEmpty()) {
+                                Details details = new Details(id, name, email, number, password1, blood, pincode, lastDate1, lastDate1);
+                                myRef.child(id).setValue(details);
+                                Toast.makeText(LastDate.this, "Blood Donation Date Updated", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                            } else {
+                                save.setEnabled(false);
+                                Toast.makeText(LastDate.this, "Please choose Date", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                     @Override
@@ -123,7 +128,6 @@ public class LastDate extends AppCompatActivity {
                 });
             }
         });
-        }
     }
 
     @Override

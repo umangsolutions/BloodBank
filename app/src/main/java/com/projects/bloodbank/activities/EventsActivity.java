@@ -5,11 +5,15 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -27,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.projects.bloodbank.modals.EventItem;
 import com.projects.bloodbank.adapters.EventsAdapter;
 import com.projects.bloodbank.utilities.ConstantValues;
+import com.projects.bloodbank.utilities.MyAppPrefsManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,6 +44,9 @@ ListView listView;
      EditText editTextUE,editTextLo;
      TextView textViewUE;
      DatabaseReference myRef;
+     String test;
+    EventItem event;
+    MyAppPrefsManager myAppPrefsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +56,7 @@ ListView listView;
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Events");
+        myAppPrefsManager=new MyAppPrefsManager(EventsActivity.this);
 
         listView=(ListView)findViewById(R.id.list_view);
         myRef = FirebaseDatabase.getInstance().getReference("Events");
@@ -57,6 +66,25 @@ ListView listView;
             @Override
             public void onClick(View view) {
                     updateEvent();
+            }
+        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, final long id) {
+               // Toast.makeText(EventsActivity.this, ""+position, Toast.LENGTH_SHORT).show();
+
+                EventItem model = eventItemList.get(position);
+                String email = ""+ model.getEmail();
+                Log.d("MAILTEST",""+email );
+                if (email.equalsIgnoreCase(myAppPrefsManager.getUserName())){
+                    eventItemList.remove(position);
+                    myRef.child(model.getId()).removeValue();
+                }else{
+                    Toast.makeText(EventsActivity.this, "You are not allowed to delete this event...!", Toast.LENGTH_SHORT).show();
+                }
+
+
+                return false;
             }
         });
 
@@ -71,13 +99,17 @@ ListView listView;
         alertDialog2.show();
         editTextUE=view2.findViewById(R.id.eventupdate);
         editTextLo=view2.findViewById(R.id.editLocation);
-        editTextLo.setEnabled(false);
-        editTextUE.setEnabled(false);
+
         final Button buttonUE=view2.findViewById(R.id.btnEventupdate);
         final Button buttonDE=view2.findViewById(R.id.btnEventdelete);
         final ImageView imageViewuE=view2.findViewById(R.id.imageViewupdate);
 
         textViewUE=view2.findViewById(R.id.textView3update);
+
+
+
+
+
 
         imageViewuE.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,54 +118,64 @@ ListView listView;
                 int mYear = c.get(Calendar.YEAR);
                 int mMonth = c.get(Calendar.MONTH);
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
-                editTextLo.setEnabled(true);
-                editTextUE.setEnabled(true);
                 DatePickerDialog datePickerDialog = new DatePickerDialog(EventsActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        textViewUE.setText("Date :"+" "+""+(month +1) + "/" + dayOfMonth + "/" + year);
+
+                        test="Date :"+" "+""+(month +1) + "/" + dayOfMonth + "/" + year;
+                        Log.d("DATETEST",""+test);
+
+                        if (test.equalsIgnoreCase("") && test.equalsIgnoreCase(null)){
+                            editTextLo.setEnabled(false);
+                            editTextUE.setEnabled(false);
+                        }else {
+                            textViewUE.setText(""+test);
+                            editTextLo.setEnabled(true);
+                            editTextUE.setEnabled(true);
+                        }
+
                     }
                 }, mYear, mMonth, mDay);
+
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
+
             }
         });
         buttonDE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alertDialog2.dismiss();
-
             }
         });
         buttonUE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-            nextEvent();
-            alertDialog2.dismiss();
 
+                String name=editTextUE.getText().toString().trim();
+                String date1=textViewUE.getText().toString().trim();
+                String location=editTextLo.getText().toString().trim();
 
+                String email=myAppPrefsManager.getUserName();
+                if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(date1) && !TextUtils.isEmpty(location)){
+                    String id=myRef.push().getKey();
+                   event =new EventItem(id,date1,location,name,email);
+
+                    myRef.child(id).setValue(event);
+                    Toast.makeText(EventsActivity.this, "Added", Toast.LENGTH_SHORT).show();
+                    alertDialog2.dismiss();
+
+                }else {
+                    Toast.makeText(EventsActivity.this, "Enter Details", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
 
     }
-    private void nextEvent(){
-        String name=editTextUE.getText().toString().trim();
-        String date1=textViewUE.getText().toString();
-        String location=editTextLo.getText().toString();
-        if(!TextUtils.isEmpty(name)){
-            String id=myRef.push().getKey();
-            EventItem event =new EventItem(id,date1,location,name);
-            myRef.child(id).setValue(event);
-            Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show();
 
-        }else {
-            Toast.makeText(this, "Enter event", Toast.LENGTH_SHORT).show();
-        }
-
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -147,7 +189,7 @@ ListView listView;
         super.onStart();
         myRef.orderByChild("date1").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 eventItemList.clear();
                 for (DataSnapshot issuesnapshot:dataSnapshot.getChildren()){
                     EventItem event=issuesnapshot.getValue(EventItem.class);
@@ -158,7 +200,7 @@ ListView listView;
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
 

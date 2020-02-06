@@ -5,7 +5,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.telephony.SmsManager;
@@ -30,6 +34,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.projects.bloodbank.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +44,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.projects.bloodbank.modals.Details;
 import com.projects.bloodbank.utilities.ConstantValues;
+import com.projects.bloodbank.utilities.MyAppPrefsManager;
 
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
@@ -48,7 +54,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -81,6 +89,8 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
     Button donarSend;
     LinearLayout linearLayout;
     RelativeLayout relativeLayout;
+    MyAppPrefsManager myAppPrefsManager;
+    @SuppressLint("SimpleDateFormat")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,8 +101,8 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
         ConstantValues.internetCheck(DonarDetailsActivity.this);
 
         Date cd = Calendar.getInstance().getTime();
-       System.out.println("Current time => " + cd);
-     SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        System.out.println("Current time => " + cd);
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         date = df.format(cd);
         //String dateInString = "2011-09-13";  // Start date
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -110,6 +120,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
         date1 = sdf.format(resultdate);
         System.out.println("String date:"+date1);
 
+        myAppPrefsManager=new MyAppPrefsManager(this);
 
         Log.d("DATE1",date);
         donarSend=(Button)findViewById(R.id.donarSend) ;
@@ -141,8 +152,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
         detailsList=new ArrayList<>();
         myRef= FirebaseDatabase.getInstance().getReference("details");
         myRef.keepSynced(true);
-        checkBox_header = (CheckBox) findViewById(
-                R.id.checkBox_header);
+        checkBox_header = (CheckBox) findViewById(R.id.checkBox_header);
 
 
 
@@ -155,17 +165,14 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
             public void onClick(View v) {
 
                 linearLayout.setVisibility(View.VISIBLE);
-                /*
-                 * Set all the checkbox to True/False
-                 */
+
+
+                
                 for (int i = 0; i < count; i++) {
                     mChecked.put(i, checkBox_header.isChecked());
                 }
 
 
-                /*
-                 * Update View
-                 */
                 adapter.notifyDataSetChanged();
 
             }
@@ -173,16 +180,19 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
 
 
 
+
+
+
         spinner=findViewById(R.id.spinnerBloodGroup);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, final int i, long l) {
-               group=spinner.getSelectedItem().toString().trim();
+                group=spinner.getSelectedItem().toString().trim();
                 String text = group+" "+ date;
                 Query query = myRef.orderByChild("blood").equalTo(group);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         detailsList.clear();
                         if (dataSnapshot.exists() || i==0) {
                             // dataSnapshot is the "issue" node with all children with id 0
@@ -191,7 +201,6 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                                 Details details = issue.getValue(Details.class);
 
                                 String lastdate = issue.getValue(Details.class).getLastDate();
-//                                String setdate = issue.getValue(Details.class).getSetDate().toString();
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
                                 Date cd = Calendar.getInstance().getTime();
@@ -199,23 +208,13 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
 
 
                                 System.out.println("Current time => " + cd);
-                                //Toast.makeText(DonarDetailsActivity.this, ""+cd, Toast.LENGTH_SHORT).show();
                                 SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
                                 String currdate = df.format(cd);
 
-//                                try {
-//                                    Date lastdat = dateFormat.parse(lastdate);
-//                                } catch (ParseException e) {
-//                                    e.printStackTrace();
-//                                }
-                                //Date last = dateFormat.parse(lastdate);
-
-                                //int days = Days.daysBetween(new LocalDate(lastdate),new LocalDate(setdate)).getDays();
                                 SimpleDateFormat myFormat = new SimpleDateFormat("MM/dd/yyyy");
 
                                 try {
-                                     Date ldate = myFormat.parse(lastdate);
-//                                    Date date2 = myFormat.parse(currdate);
+                                    Date ldate = myFormat.parse(lastdate);
                                     diff = cd.getTime() - ldate.getTime() ;
                                     secondsInMilli = 1000;
                                     minutesInMilli = secondsInMilli * 60;
@@ -223,7 +222,6 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                                     daysInMilli = hoursInMilli * 24;
                                     elapsedDays = diff / daysInMilli;
 
-                                    //System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
@@ -233,28 +231,42 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                                     detailsList.add(details);
                                 }
                                 else {
-                                    //Toast.makeText(DonarDetailsActivity.this, "" + diff, Toast.LENGTH_SHORT).show();
-                                    //Toast.makeText(DonarDetailsActivity.this, "No Blood Group Found", Toast.LENGTH_SHORT).show();
+                                    Log.d("DIFFERENCES",""+diff);
+
+                                     }
+                            }
+
+                            ListIterator<Details> iter = detailsList.listIterator();
+                            while(iter.hasNext()){
+                                if(iter.next().getEmail().equals(myAppPrefsManager.getUserName())){
+                                    iter.remove();
+
                                 }
                             }
+
+                            if (detailsList.size()==0 && i!=0){
+                                relativeLayout.setVisibility(View.GONE);
+                                Toast.makeText(DonarDetailsActivity.this, "No Donor's Found", Toast.LENGTH_SHORT).show();
+
+                            }
+
                             adapter=new CustomAdapter(DonarDetailsActivity.this,detailsList);
                             listView.setAdapter(adapter);
+
                             if (detailsList.size()>0){
                                 relativeLayout.setVisibility(View.VISIBLE);
-                                //donarSend.setEnabled(true);
                             }
                         }
                         else{
                             relativeLayout.setVisibility(View.GONE);
                             Toast.makeText(DonarDetailsActivity.this, "No Donor's Found", Toast.LENGTH_SHORT).show();
                             listView.setAdapter(null);
-                            //donarEdittext.setEnabled(false);
                         }
 
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
                 });
@@ -282,6 +294,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                 String toNumbers = "";
 
                 for (String s : phonnoList) {
+
                     Log.e("PHONELIST", "" + s);
                     toNumbers = toNumbers + s + ";";
 
@@ -290,7 +303,6 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                 phonnoList.clear();
                 if (!toNumbers.isEmpty()) {
                     toNumbers = toNumbers.substring(0, toNumbers.length() - 1);
-                    String message = "this is a custom message";
                     Uri sendSmsTo = Uri.parse("smsto:" + toNumbers);
                     Intent intent = new Intent(
                             Intent.ACTION_SENDTO, sendSmsTo);
@@ -371,7 +383,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
             TextView textView2=(TextView)mView.findViewById(R.id.pincode);
 
             textView.setText("Name: "+detailsList.get(position).getName());
-            textView2.setText("Age: "+detailsList.get(position).getPincode());
+            textView2.setText("Age: "+detailsList.get(position).getAge());
 
            final CheckBox mCheckBox=mView.findViewById(R.id.checkBox);
 

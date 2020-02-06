@@ -9,23 +9,23 @@ public class Details {
     private String name;
     private String email;
     private String number;
-    private String password1;
+    private String password;
     private String blood;
-    private String pincode;
+    private String age;
     private String lastDate;
     private String setDate;
 
     public Details() {
     }
 
-    public Details(String id, String name, String email, String number, String password1, String blood, String pincode, String lastDate, String setDate) {
+    public Details(String id, String name, String email, String number, String password1, String blood, String age, String lastDate, String setDate) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.number = number;
-        this.password1 = password1;
+        this.password = password1;
         this.blood = blood;
-        this.pincode = pincode;
+        this.age = age;
         this.lastDate = lastDate;
         this.setDate = setDate;
     }
@@ -62,12 +62,12 @@ public class Details {
         this.number = number;
     }
 
-    public String getPassword1() {
-        return password1;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassword1(String password1) {
-        this.password1 = password1;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getBlood() {
@@ -78,12 +78,12 @@ public class Details {
         this.blood = blood;
     }
 
-    public String getPincode() {
-        return pincode;
+    public String getAge() {
+        return age;
     }
 
-    public void setPincode(String pincode) {
-        this.pincode = pincode;
+    public void setAge(String age) {
+        this.age = age;
     }
 
     public String getLastDate() {

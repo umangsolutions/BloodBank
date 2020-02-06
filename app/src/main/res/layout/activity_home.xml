@@ -1,145 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:gravity="center"
-    android:layout_gravity="center"
-    android:layout_height="wrap_content">
+    android:background="@color/white"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
+        android:layout_gravity="center"
         android:orientation="vertical"
         android:padding="16dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="3dp"
-            app:cardUseCompatPadding="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:baselineAligned="false">
+
+
 
             <LinearLayout
                 android:id="@+id/donarLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="#FB8C00"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="190dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_video_1"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_margin="10dp"
                     android:padding="10dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/searchblood"
                     android:contentDescription="@string/app_name" />
 
                 <View
-                    android:layout_width="4dp"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/white" />
-
-                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
+                    android:layout_height="1dp"
+                    android:layout_margin="5dp"
+                    android:background="@color/white" />
+
 
                     <TextView
                         android:id="@+id/textView"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/search_donor"
+                        android:gravity="center"
+                        android:layout_margin="5dp"
                         android:textColor="@android:color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        android:textSize="19sp"
+                        />
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
 
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="3dp"
-            app:cardUseCompatPadding="true">
+
+
 
             <LinearLayout
                 android:id="@+id/chatLayout"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_margin="5dp"
-                android:background="#16a085"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="190dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_video_2"
+
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_margin="10dp"
                     android:padding="10dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/chatroom"
                     android:contentDescription="@string/app_name" />
 
                 <View
-                    android:layout_width="4dp"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/white" />
-
-                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center">
+                    android:layout_height="1dp"
+                    android:layout_margin="5dp"
+                    android:background="@color/white" />
+
+
 
                     <TextView
                         android:id="@+id/textView1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/chat_room"
+                        android:layout_margin="5dp"
+                        android:gravity="center"
                         android:textColor="@android:color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
+                        android:textSize="19sp"
+                        />
 
-                </LinearLayout>
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="3dp"
-            app:cardUseCompatPadding="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:baselineAligned="false">
+
 
             <LinearLayout
                 android:id="@+id/eventsLayout"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_margin="5dp"
-                android:background="#2c3e50"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="190dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_video_3"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_margin="10dp"
                     android:padding="10dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/event"
                     android:contentDescription="@string/app_name" />
 
                 <View
-                    android:layout_width="4dp"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/white" />
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="5dp"
+                    android:background="@color/white" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -148,106 +151,45 @@
 
                     <TextView
                         android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/events"
+                        android:gravity="center"
+                        android:layout_margin="5dp"
                         android:textColor="@android:color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
+                        android:textSize="19sp"
+                        />
                 </LinearLayout>
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
 
-        </LinearLayout>
 
-        <!--<com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="lastDate"
-                android:id="@+id/lastDate"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/save"
--            android:text="save"/>&ndash;&gt;-->
-<!--     <androidx.cardview.widget.CardView-->
-<!--         android:layout_width="match_parent"-->
-<!--         android:layout_height="wrap_content"-->
-<!--         app:cardCornerRadius="5dp"-->
-<!--         app:cardElevation="3dp"-->
-<!--         app:cardUseCompatPadding="true">-->
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:layout_marginTop="30dp">-->
-<!--                <TextView-->
-<!--                    android:layout_width="300dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Last Blood Donation Date"-->
-<!--                    android:id="@+id/lastDate"-->
-<!--                    android:inputType="text"-->
-<!--                    android:paddingLeft="10dp"-->
-<!--                    android:textSize="20sp"/>-->
-<!--            <ImageView-->
-<!--                android:id="@+id/imageViewup"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="0.5"-->
-<!--                android:src="@drawable/ic_date_range_black_36dp"-->
-<!--                android:contentDescription="@string/app_name" />-->
-<!--        </LinearLayout>-->
-<!--        <Button-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="70dp"-->
-<!--            android:id="@+id/save"-->
-<!--            android:text="save"-->
-<!--            android:gravity="center"/>-->
-<!--     </androidx.cardview.widget.CardView>-->
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="3dp"
-            app:cardUseCompatPadding="true">
 
             <LinearLayout
                 android:id="@+id/updatedate"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_margin="5dp"
-                android:background="#4CAF50"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="190dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_video_4"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_margin="10dp"
                     android:padding="10dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_date_range_black_24dp"
                     android:contentDescription="@string/app_name" />
 
                 <View
-                    android:layout_width="4dp"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/white" />
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="5dp"
+                    android:background="@color/white" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -256,20 +198,20 @@
 
                     <TextView
                         android:id="@+id/updatedate1"
-                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Last Blood Donation"
+                        android:text="@string/last_blood_donation"
                         android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        android:layout_marginLeft="8dp"
-                        android:textStyle="bold" />
+                        android:textSize="19sp"
+                        android:layout_margin="5dp" />
                 </LinearLayout>
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
 
 
+    </LinearLayout>
 
 
 
@@ -277,4 +219,4 @@
     </LinearLayout>
 
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>

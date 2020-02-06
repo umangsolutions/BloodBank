@@ -33,7 +33,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:fontFamily="serif"
             android:textColor="#000000"
             android:hint="@string/enter_message"
             android:inputType="text"
@@ -45,8 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@drawable/button_border_solid"
-            android:textColor="#fff"
-            android:enabled="false"
+            android:textColor="@color/white"
             android:text="@string/send"/>
 
     </LinearLayout>

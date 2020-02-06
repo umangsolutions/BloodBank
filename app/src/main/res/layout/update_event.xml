@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:padding="2dp"
         android:orientation="horizontal">
 
         <TextView
@@ -19,8 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
+            android:layout_gravity="center"
             android:hint="@string/select_date"
-            android:fontFamily="@font/open_sans"
             android:textColor="#000"
             android:textSize="20sp" />
 
@@ -29,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:src="@drawable/ic_date_range_black_24dp"
+            android:src="@drawable/ic_date_range_red_36dp"
             android:contentDescription="@string/app_name" />
     </LinearLayout>
 
@@ -64,7 +65,8 @@
         android:enabled="false"
         android:gravity="top"
         android:hint="@string/enter_description"
-        android:inputType="textMultiLine|textCapWords" />
+        android:inputType="textMultiLine|textCapWords"
+        tools:ignore="Autofill" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -80,7 +82,6 @@
             android:layout_weight="1"
             android:text="@string/submit"
             android:textStyle="bold"
-            android:fontFamily="@font/open_sans"
             android:textColor="#fff"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -94,7 +95,6 @@
             android:layout_weight="1"
             android:textColor="#fff"
             android:textStyle="bold"
-            android:fontFamily="@font/open_sans"
             android:layout_marginEnd="5dp"
             android:background="@drawable/button_border_solid"
             android:text="@string/cancel"

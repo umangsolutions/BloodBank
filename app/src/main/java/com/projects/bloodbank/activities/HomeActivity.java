@@ -1,41 +1,25 @@
 package com.projects.bloodbank.activities;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.projects.bloodbank.LastDate;
 import com.projects.bloodbank.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.projects.bloodbank.utilities.ConstantValues;
 import com.projects.bloodbank.utilities.MyAppPrefsManager;
-import com.projects.bloodbank.modals.Details;
-
-import java.util.Calendar;
 
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -117,7 +101,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         dialog.findViewById(R.id.image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),LastDate.class));
+                startActivity(new Intent(getApplicationContext(), LastDateActivity.class));
             }
         });
 
@@ -139,18 +123,30 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
 
             case R.id.donarLayout:
-                startActivity(new Intent(this,DonarDetailsActivity.class));
+                Intent intent=new Intent(HomeActivity.this,DonarDetailsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
                 break;
 
             case R.id.chatLayout:
-                startActivity(new Intent(this,ChatActivity.class));
+                Intent intent1=new Intent(HomeActivity.this,ChatActivity.class);
+                intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent1);
+
                 break;
 
             case R.id.eventsLayout:
-                startActivity(new Intent(this,EventsActivity.class));
+                Intent intent2=new Intent(HomeActivity.this,EventsActivity.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent2);
+
                 break;
             case R.id.updatedate:
-                startActivity(new Intent(HomeActivity.this, LastDate.class));
+                Intent intent3=new Intent(HomeActivity.this,LastDateActivity.class);
+                intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent3);
+
                 break;
 
         }
@@ -170,11 +166,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if (item.getItemId() == R.id.action_settings) {
             // Set UserLoggedIn in MyAppPrefsManager
             MyAppPrefsManager myAppPrefsManager = new MyAppPrefsManager(HomeActivity.this);
-            myAppPrefsManager.setUserLoggedIn(false);
+
             // Set isLogged_in of ConstantValues
             ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
             FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+            Intent intent=new Intent(HomeActivity.this,LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            myAppPrefsManager.setUserLoggedIn(false);
+            myAppPrefsManager.setUserName("");
             finish();
             return true;
         }

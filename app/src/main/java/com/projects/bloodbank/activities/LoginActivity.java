@@ -1,15 +1,10 @@
 package com.projects.bloodbank.activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
 import android.text.TextUtils;
@@ -25,16 +20,13 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.projects.bloodbank.R;
-import com.projects.bloodbank.receiver.NetworkStateChangeReceiver;
 import com.projects.bloodbank.utilities.ConstantValues;
 import com.projects.bloodbank.utilities.MyAppPrefsManager;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.projects.bloodbank.receiver.NetworkStateChangeReceiver.IS_NETWORK_AVAILABLE;
-
-public class LoginActivity extends Activity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     EditText etMobile,etPassword;
     Button btnSignIn;
     TextView txtRegister;
@@ -54,6 +46,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         progressDialog=new ProgressDialog(this);
         myAppPrefsManager= new MyAppPrefsManager(LoginActivity.this);
         ConstantValues.internetCheck(LoginActivity.this);
+
+
 
 
       /*  authStateListener=new FirebaseAuth.AuthStateListener() {
@@ -97,6 +91,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 
     }*/
+
+
+
+
     private boolean isValidEmail(String Emailid) {
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -148,11 +146,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
                             // Set isLogged_in of ConstantValues
                             ConstantValues.IS_USER_LOGGED_IN = myAppPrefsManager.isUserLoggedIn();
+
+
+                            Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
                             Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
-                            finish();
 
-                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+
 
 
                         }
@@ -183,4 +186,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             }
         }, 2000);
     }
+
+
+
+
+
+
 }

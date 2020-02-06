@@ -33,8 +33,7 @@
                 android:textStyle="bold"
                 android:textSize="24sp"
                 android:gravity="center_horizontal"
-                android:textColor="@color/orange1"
-                />
+                android:textColor="@color/orange1" />
 
 
 
@@ -50,8 +49,7 @@
                     android:ems="10"
                     android:inputType="textEmailAddress"
                     android:hint="@string/enter_email"
-                    android:padding="10dp"
-                    />
+                    android:padding="10dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,11 +64,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:ems="01"
+                    android:ems="10"
                     android:inputType="textPassword"
                     android:hint="@string/enter_password"
-                    android:padding="10dp"
-                    />
+                    android:padding="10dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,7 +94,7 @@
                 android:id="@+id/forgot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Forgot Password ? Click here"
+                android:text="@string/forgot_password_click_here"
                 android:gravity="center"
                 android:padding="8dp"
                 android:layout_marginTop="10dp"/>

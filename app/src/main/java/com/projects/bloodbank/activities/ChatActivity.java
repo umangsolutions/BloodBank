@@ -44,7 +44,6 @@ public class ChatActivity extends AppCompatActivity {
     private MessageAdapter mMessageAdapter;
 
     private EditText mMessageEditText;
-    private Button mSendButton;
 
     String mUsername;
     FirebaseDatabase firebaseDatabase;
@@ -66,7 +65,6 @@ public class ChatActivity extends AppCompatActivity {
         firebaseAuth= FirebaseAuth.getInstance().getCurrentUser();
         assert firebaseAuth != null;
         pemail = firebaseAuth.getEmail();
-        //Toast.makeText(this, ""+pemail, Toast.LENGTH_SHORT).show();
         firebaseDatabase= FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference().child("messages");
         databaseReference1= FirebaseDatabase.getInstance().getReference("details");
@@ -76,14 +74,14 @@ public class ChatActivity extends AppCompatActivity {
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     name = dataSnapshot1.getValue(Details.class).getName();
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -93,7 +91,7 @@ public class ChatActivity extends AppCompatActivity {
         ListView mMessageListView = (ListView) findViewById(R.id.messageListView);
 
         mMessageEditText = (EditText) findViewById(R.id.messageEditText);
-        mSendButton = (Button) findViewById(R.id.sendButton);
+        Button mSendButton = (Button) findViewById(R.id.sendButton);
 
         // Initialize message ListView and its adapter
         List<FriendlyMessage> friendlyMessages = new ArrayList<>();
@@ -107,7 +105,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
         // Enable Send button when there's text to send
-        mMessageEditText.addTextChangedListener(new TextWatcher() {
+       /* mMessageEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -124,45 +122,51 @@ public class ChatActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
             }
         });
-        mMessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(DEFAULT_MSG_LENGTH_LIMIT)});
+        mMessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(DEFAULT_MSG_LENGTH_LIMIT)});*/
 
         // Send button sends a message and clears the EditText
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO: Send messages on click
+
                 String text=mMessageEditText.getText().toString().trim();
-                FriendlyMessage friendlyMessage = new FriendlyMessage(text,name);
-                databaseReference.push().setValue(friendlyMessage);
-                // Clear input box
-                mMessageEditText.setText("");
+                if (!text.isEmpty()){
+                    FriendlyMessage friendlyMessage = new FriendlyMessage(text,name);
+                    databaseReference.push().setValue(friendlyMessage);
+                    // Clear input box
+                    mMessageEditText.setText("");
+                }else {
+                    Toast.makeText(ChatActivity.this, "Enter Message", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         childEventListener=new ChildEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s) {
                 FriendlyMessage friendlyMessage=dataSnapshot.getValue(FriendlyMessage.class);
 
                 mMessageAdapter.add(friendlyMessage);
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String s) {
 
             }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
             }
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String s) {
 
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         };
@@ -174,7 +178,7 @@ public class ChatActivity extends AppCompatActivity {
                 FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
                 if (firebaseUser !=null)
                 {
-                    Toast.makeText(ChatActivity.this,"welcome", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ChatActivity.this,"Welcome", Toast.LENGTH_LONG).show();
                 }
                 else
                 {

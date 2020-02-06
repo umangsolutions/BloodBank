@@ -155,7 +155,7 @@ import static com.projects.bloodbank.receiver.NetworkStateChangeReceiver.IS_NETW
             app_ver = context.getPackageManager().getPackageInfo(
                     context.getPackageName(), 0).versionName;
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return app_ver;
     }
@@ -171,11 +171,11 @@ import static com.projects.bloodbank.receiver.NetworkStateChangeReceiver.IS_NETW
 
                 if (networkStatus.equals("Not Available"))
                 {
-                    Toast.makeText(context, "No Internet Found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "No Internet Found", Toast.LENGTH_SHORT).show();
 
                 }
                 else {
-                    Toast.makeText(context, " Internet Found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, " Internet Found", Toast.LENGTH_SHORT).show();
 
                 }
             }

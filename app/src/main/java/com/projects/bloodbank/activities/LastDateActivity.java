@@ -1,5 +1,6 @@
-package com.projects.bloodbank;
+package com.projects.bloodbank.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,14 +21,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.projects.bloodbank.activities.HomeActivity;
+import com.projects.bloodbank.R;
 import com.projects.bloodbank.modals.Details;
 import com.projects.bloodbank.utilities.ConstantValues;
 import com.projects.bloodbank.utilities.MyAppPrefsManager;
 
 import java.util.Calendar;
+import java.util.Objects;
 
-public class LastDate extends AppCompatActivity {
+public class LastDateActivity extends AppCompatActivity {
 
     TextView lastDate;
     FirebaseDatabase database;
@@ -40,7 +41,7 @@ public class LastDate extends AppCompatActivity {
     private String number;
     private String password1;
     private String blood;
-    private String pincode;
+    private String age;
     private String ldate;
     private String lastDate1;
     MyAppPrefsManager myAppPrefsManager;
@@ -52,16 +53,17 @@ public class LastDate extends AppCompatActivity {
         setContentView(R.layout.activity_last_date);
 
         overridePendingTransition(0,0);
-
-        ConstantValues.internetCheck(LastDate.this);
-        myAppPrefsManager=new MyAppPrefsManager(LastDate.this);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Last Donar Date");
+        ConstantValues.internetCheck(LastDateActivity.this);
+        myAppPrefsManager=new MyAppPrefsManager(LastDateActivity.this);
         email=myAppPrefsManager.getUserName();
-        //lastDate=(EditText) findViewById(R.id.lastDate);
         lastDate=(TextView) findViewById(R.id.lastDate);
         save=(Button) findViewById(R.id.save);
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("details");
-        save.setEnabled(false);
+
         final ImageView imageViewuE=(ImageView)findViewById(R.id.imageViewup);
         imageViewuE.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +72,7 @@ public class LastDate extends AppCompatActivity {
                 int mYear = c.get(Calendar.YEAR);
                 int mMonth = c.get(Calendar.MONTH);
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(LastDate.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(LastDateActivity.this, new DatePickerDialog.OnDateSetListener() {
                     //DatePicker.getDatePicker().setMaxDate(System.currentTimeMillis());
 
                     @SuppressLint("SetTextI18n")
@@ -83,19 +85,19 @@ public class LastDate extends AppCompatActivity {
 
                     datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
                     datePickerDialog.show();
-                    save.setEnabled(true);
+
             }
         });
 
 
-            findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
+            save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Query query = myRef.orderByChild("email").equalTo(email);
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                         if (dataSnapshot.exists()) {
                             for (DataSnapshot issue : dataSnapshot.getChildren()) {
@@ -105,24 +107,26 @@ public class LastDate extends AppCompatActivity {
                                 id=""+details.getId();
                                 name=""+details.getName();
                                 number=""+details.getNumber();
-                                password1=""+details.getPassword1();
+                                password1=""+details.getPassword();
                                 blood=""+details.getBlood();
-                                pincode=""+details.getPincode();
+                                age=""+details.getAge();
                             }
                             lastDate1=lastDate.getText().toString().trim();
                             if(!lastDate1.isEmpty()) {
-                                Details details = new Details(id, name, email, number, password1, blood, pincode, lastDate1, lastDate1);
+                                Details details = new Details(id, name, email, number, password1, blood, age, lastDate1, lastDate1);
                                 myRef.child(id).setValue(details);
-                                Toast.makeText(LastDate.this, "Blood Donation Date Updated", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                Toast.makeText(LastDateActivity.this, "Blood Donation Date Updated", Toast.LENGTH_LONG).show();
+                                Intent intent=new Intent(LastDateActivity.this,HomeActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+
                             } else {
-                                save.setEnabled(false);
-                                Toast.makeText(LastDate.this, "Please choose Date", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LastDateActivity.this, "Please Select Date", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
                 });
@@ -132,7 +136,7 @@ public class LastDate extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {//finish();
+        if (item.getItemId() == android.R.id.home) {
             onBackPressed();
         }
         return true;

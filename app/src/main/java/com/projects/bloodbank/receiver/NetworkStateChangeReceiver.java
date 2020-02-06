@@ -1,5 +1,6 @@
 package com.projects.bloodbank.receiver;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,7 @@ public class NetworkStateChangeReceiver extends BroadcastReceiver {
     public static final String NETWORK_AVAILABLE_ACTION = "com.projects.bloodbank";
     public static final String IS_NETWORK_AVAILABLE = "isNetworkAvailable";
 
+    @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent networkStateIntent = new Intent(NETWORK_AVAILABLE_ACTION);

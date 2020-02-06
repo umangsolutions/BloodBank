@@ -3,6 +3,7 @@ package com.projects.bloodbank.activities;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -39,14 +40,15 @@ import java.util.List;
 import java.util.Objects;
 
 public class EventsActivity extends AppCompatActivity {
+
 private List<EventItem> eventItemList=new ArrayList<>();
 ListView listView;
-     EditText editTextUE,editTextLo;
-     TextView textViewUE;
-     DatabaseReference myRef;
-     String test;
-    EventItem event;
-    MyAppPrefsManager myAppPrefsManager;
+EditText editTextUE,editTextLo;
+TextView textViewUE,emptyView;
+DatabaseReference myRef;
+String test;
+EventItem event;
+MyAppPrefsManager myAppPrefsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,7 @@ ListView listView;
         myAppPrefsManager=new MyAppPrefsManager(EventsActivity.this);
 
         listView=(ListView)findViewById(R.id.list_view);
+        emptyView=(TextView) findViewById(R.id.emptyView);
         myRef = FirebaseDatabase.getInstance().getReference("Events");
         myRef.keepSynced(true);
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
@@ -71,17 +74,35 @@ ListView listView;
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, final long id) {
-               // Toast.makeText(EventsActivity.this, ""+position, Toast.LENGTH_SHORT).show();
 
-                EventItem model = eventItemList.get(position);
-                String email = ""+ model.getEmail();
-                Log.d("MAILTEST",""+email );
-                if (email.equalsIgnoreCase(myAppPrefsManager.getUserName())){
-                    eventItemList.remove(position);
-                    myRef.child(model.getId()).removeValue();
-                }else{
-                    Toast.makeText(EventsActivity.this, "You are not allowed to delete this event...!", Toast.LENGTH_SHORT).show();
-                }
+
+                AlertDialog.Builder builder =new AlertDialog.Builder(EventsActivity.this);
+                builder.setTitle("Delete...!");
+                builder.setMessage("Are you sure to delete this event ?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        EventItem model = eventItemList.get(position);
+                        String email = ""+ model.getEmail();
+                        Log.d("MAILTEST",""+email );
+                        if (email.equalsIgnoreCase(myAppPrefsManager.getUserName())){
+                            eventItemList.remove(position);
+                            myRef.child(model.getId()).removeValue();
+                        }else{
+                            Toast.makeText(EventsActivity.this, "You are not allowed to delete this event...!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alertDialog2=builder.create();
+                alertDialog2.show();
 
 
                 return false;
@@ -164,7 +185,7 @@ ListView listView;
                    event =new EventItem(id,date1,location,name,email);
 
                     myRef.child(id).setValue(event);
-                    Toast.makeText(EventsActivity.this, "Added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EventsActivity.this, "Added Successfully", Toast.LENGTH_SHORT).show();
                     alertDialog2.dismiss();
 
                 }else {
@@ -194,9 +215,16 @@ ListView listView;
                 for (DataSnapshot issuesnapshot:dataSnapshot.getChildren()){
                     EventItem event=issuesnapshot.getValue(EventItem.class);
                     eventItemList.add(event);
+
+                }
+                if (eventItemList.size()==0){
+                    emptyView.setVisibility(View.VISIBLE);
+                }else {
+                    emptyView.setVisibility(View.GONE);
                 }
                 EventsAdapter adapter=new EventsAdapter(EventsActivity.this,eventItemList);
                 listView.setAdapter(adapter);
+
             }
 
             @Override

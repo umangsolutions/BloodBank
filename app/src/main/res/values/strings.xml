@@ -37,6 +37,15 @@
     <string name="no_internet_connection_available">No Internet Connection Available</string>
     <string name="enter_location">Enter Location</string>
     <string name="enter_description">Enter Description</string>
+    <string name="last_blood_donation_date">Last Blood Donation Date</string>
+    <string name="save">save</string>
+    <string name="enter_age">Enter Age</string>
+    <string name="forgot_password_click_here">Forgot Password ? Click here</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="enter_email_id">Enter Email ID</string>
+    <string name="close">Close</string>
+    <string name="last_blood_donation">Last Donation</string>
+    <string name="no_events_to_display">No Events to Display</string>
 
     <array name="blood">
         <item>Select Your Blood Group</item>

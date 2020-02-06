@@ -1,5 +1,6 @@
 package com.projects.bloodbank.activities;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,7 +36,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText etFullName, etMobile, etEmail, etPassword, etAddress;
+    EditText etFullName, etMobile, etEmail, etPassword, etAge;
     String name, email, number, password, bloodgroup, age;
     Button btnSave;
     Spinner spinner;
@@ -77,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
         etMobile = (EditText) findViewById(R.id.etMobile);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
-        etAddress = (EditText) findViewById(R.id.etAge);
+        etAge = (EditText) findViewById(R.id.etAge);
         textView = findViewById(R.id.txtLogin);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
                 name = etFullName.getText().toString().trim();
                 email = etEmail.getText().toString().trim();
                 number = etMobile.getText().toString().trim();
-                age = etAddress.getText().toString().trim();
+                age = etAge.getText().toString().trim();
                 bloodgroup = spinner.getSelectedItem().toString();
                 password = etPassword.getText().toString().trim();
                 if (TextUtils.isEmpty(name)) {
@@ -109,13 +110,13 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (TextUtils.isEmpty(email)) {
                     if ((TextUtils.isEmpty(password)))
                         Toast.makeText(RegisterActivity.this, "Please Enter Details", Toast.LENGTH_SHORT).show();
-                    return;
+
                 } else if (TextUtils.isEmpty(email)) {
                     Toast.makeText(RegisterActivity.this, "Please Enter Email", Toast.LENGTH_SHORT).show();
-                    return;
+
                 } else if (TextUtils.isEmpty(password)) {
                     Toast.makeText(RegisterActivity.this, "Please Enter Password", Toast.LENGTH_SHORT).show();
-                    return;
+
                 } else if (bloodgroup.equals("Select Your Blood Group")) {
                     Toast.makeText(RegisterActivity.this, "Select Your Blood Group", Toast.LENGTH_SHORT).show();
                 }
@@ -130,7 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     if(i<18) {
-                        etAddress.setError("Age should be more than 18 yrs !");
+                        etAge.setError("Age should be more than 18 yrs !");
                     } else
                     {
                         saveDate();
@@ -142,7 +143,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean isValidEmail(String Emailid) {
-        String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+        String EMAIL_PATTERN = "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
@@ -162,6 +163,7 @@ public class RegisterActivity extends AppCompatActivity {
         return pin.length() == 6;
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void saveDate() {
 
 
@@ -170,9 +172,11 @@ public class RegisterActivity extends AppCompatActivity {
 
         Date cd = Calendar.getInstance().getTime();
         System.out.println("Current time => " + cd);
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         date = df.format(cd);
         //String dateInString = "2011-09-13";  // Start date
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
         Calendar c = Calendar.getInstance(); // Get Calendar Instance
@@ -209,11 +213,6 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
 
-
-//    } else
-//    {
-//        Toast.makeText(getApplicationContext(), "Please enter your details!", Toast.LENGTH_LONG).show();
-//    }
 
     }
     @Override

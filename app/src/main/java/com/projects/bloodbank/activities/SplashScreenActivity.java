@@ -56,7 +56,6 @@ public class SplashScreenActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_screen);
-//        Objects.requireNonNull(getSupportActionBar()).hide();
         progressBar = findViewById(R.id.progressBar);
         myAppPrefsManager=new MyAppPrefsManager(this);
         tryAgain=findViewById(R.id.tryAgain);

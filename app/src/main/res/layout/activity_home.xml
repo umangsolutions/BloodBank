@@ -1,28 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
 
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:layout_gravity="center"
+        android:layout_marginTop="-30dp"
+        android:background="@color/white"
         android:orientation="vertical"
         android:padding="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:baselineAligned="false">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            android:paddingTop="16dp"
+            android:paddingBottom="20dp">
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center|top"
+                    android:background="@drawable/circlershape"
+                    android:backgroundTint="#ff4e50"
+                    android:contentDescription="@string/app_name"
+                    android:padding="16dp"/>
+
+                <TextView
+                    android:id="@+id/bloodgr"
+                    android:layout_marginTop="27dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="35sp"
+                    android:textColor="@color/white"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="20dp">
+
+                <TextView
+                    android:id="@+id/welcomeView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fontFamily=""
+                    android:gravity="center"
+                    android:text="@string/welcome_message"
+                    android:textColor="@android:color/black"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/nameView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/opensans_regular"
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
 
             <LinearLayout
@@ -37,11 +101,11 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_margin="10dp"
-                    android:padding="10dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/searchblood"
-                    android:contentDescription="@string/app_name" />
+                    android:layout_margin="10dp"
+                    android:contentDescription="@string/app_name"
+                    android:padding="10dp"
+                    android:src="@drawable/searchblood" />
 
                 <View
                     android:layout_width="match_parent"
@@ -50,43 +114,38 @@
                     android:background="@color/white" />
 
 
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/search_donor"
-                        android:gravity="center"
-                        android:layout_margin="5dp"
-                        android:textColor="@android:color/white"
-                        android:textSize="19sp"
-                        />
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:text="@string/search_donor"
+                    android:textColor="@android:color/white"
+                    android:textSize="19sp" />
 
             </LinearLayout>
-
-
-
-
 
 
             <LinearLayout
                 android:id="@+id/chatLayout"
                 android:layout_width="match_parent"
                 android:layout_height="190dp"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:background="@drawable/bg_video_2"
-
                 android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+
+                android:background="@drawable/bg_video_2"
                 android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_margin="10dp"
-                    android:padding="10dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/chatroom"
-                    android:contentDescription="@string/app_name" />
+                    android:layout_margin="10dp"
+                    android:contentDescription="@string/app_name"
+                    android:padding="10dp"
+                    android:src="@drawable/chatroom" />
 
                 <View
                     android:layout_width="match_parent"
@@ -95,29 +154,28 @@
                     android:background="@color/white" />
 
 
-
-                    <TextView
-                        android:id="@+id/textView1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/chat_room"
-                        android:layout_margin="5dp"
-                        android:gravity="center"
-                        android:textColor="@android:color/white"
-                        android:textSize="19sp"
-                        />
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fontFamily="@font/opensans_regular"
+                    android:gravity="center"
+                    android:text="@string/chat_room"
+                    android:textColor="@android:color/white"
+                    android:textSize="19sp" />
 
 
             </LinearLayout>
-    </LinearLayout>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:baselineAligned="false">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
 
             <LinearLayout
@@ -132,11 +190,11 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_margin="10dp"
-                    android:padding="10dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/event"
-                    android:contentDescription="@string/app_name" />
+                    android:layout_margin="10dp"
+                    android:contentDescription="@string/app_name"
+                    android:padding="10dp"
+                    android:src="@drawable/event" />
 
                 <View
                     android:layout_width="match_parent"
@@ -153,18 +211,14 @@
                         android:id="@+id/textView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/events"
-                        android:gravity="center"
                         android:layout_margin="5dp"
+                        android:gravity="center"
+                        android:text="@string/events"
                         android:textColor="@android:color/white"
-                        android:textSize="19sp"
-                        />
+                        android:textSize="19sp" />
                 </LinearLayout>
 
             </LinearLayout>
-
-
-
 
 
             <LinearLayout
@@ -179,11 +233,11 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_margin="10dp"
-                    android:padding="10dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_date_range_black_24dp"
-                    android:contentDescription="@string/app_name" />
+                    android:layout_margin="10dp"
+                    android:contentDescription="@string/app_name"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_date_range_black_24dp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -198,25 +252,22 @@
 
                     <TextView
                         android:id="@+id/updatedate1"
-                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:gravity="center"
                         android:text="@string/last_blood_donation"
                         android:textColor="@android:color/white"
-                        android:textSize="19sp"
-                        android:layout_margin="5dp" />
+                        android:textSize="19sp" />
                 </LinearLayout>
 
             </LinearLayout>
 
 
-
-    </LinearLayout>
-
-
+        </LinearLayout>
 
 
     </LinearLayout>
 
 
-    </androidx.core.widget.NestedScrollView>
+</androidx.core.widget.NestedScrollView>

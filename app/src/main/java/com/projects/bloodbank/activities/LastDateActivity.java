@@ -35,7 +35,7 @@ public class LastDateActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference myRef;
     Button save;
-    private String id;
+    private String id,lastdatview;
     private String name;
     private String email;
     private String number;
@@ -111,6 +111,7 @@ public class LastDateActivity extends AppCompatActivity {
                                 blood=""+details.getBlood();
                                 age=""+details.getAge();
                             }
+
                             lastDate1=lastDate.getText().toString().trim();
                             if(!lastDate1.isEmpty()) {
                                 Details details = new Details(id, name, email, number, password1, blood, age, lastDate1, lastDate1);
@@ -132,6 +133,41 @@ public class LastDateActivity extends AppCompatActivity {
                 });
             }
         });
+
+        myRef= FirebaseDatabase.getInstance().getReference("details");
+        myRef.keepSynced(true);
+        Query query = myRef.orderByChild("email").equalTo(email);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()) {
+                    // dataSnapshot is the "issue" node with all children with id 0
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        // do something with the individual "issues"
+                        Details details = issue.getValue(Details.class);
+                        name=issue.getValue(Details.class).getName();
+                        lastdatview=issue.getValue(Details.class).getLastDate();
+                    }
+                   lastDate.setText(lastdatview);
+
+
+                }
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
     }
 
     @Override

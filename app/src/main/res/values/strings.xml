@@ -46,6 +46,7 @@
     <string name="close">Close</string>
     <string name="last_blood_donation">Last Donation</string>
     <string name="no_events_to_display">No Events to Display</string>
+    <string name="welcome_message">Welcome</string>
 
     <array name="blood">
         <item>Select Your Blood Group</item>

@@ -3,23 +3,38 @@ package com.projects.bloodbank.activities;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.projects.bloodbank.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.projects.bloodbank.modals.Details;
 import com.projects.bloodbank.utilities.ConstantValues;
 import com.projects.bloodbank.utilities.MyAppPrefsManager;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.ListIterator;
 
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -28,13 +43,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     boolean doubleBackToExitPressedOnce = false;
     //EditText lastDate;
-    TextView lastDate;
+    TextView lastDate,nameView,bloodgr;
     FirebaseDatabase database;
     DatabaseReference myRef;
     Button save;
     private String id;
     private String name;
     private String email;
+    private String bloodgroup;
     private String number;
     private String password1;
     private String blood;
@@ -57,6 +73,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         chatLayout=(LinearLayout)findViewById(R.id.chatLayout);
         eventsLayout=(LinearLayout)findViewById(R.id.eventsLayout);
         updatelayout = (LinearLayout)findViewById(R.id.updatedate);
+        nameView=(TextView) findViewById(R.id.nameView);
+        bloodgr=(TextView) findViewById(R.id.bloodgr);
 //        //lastDate=(EditText) findViewById(R.id.lastDate);
 //        lastDate=(TextView) findViewById(R.id.lastDate);
 //        save=(Button) findViewById(R.id.save);
@@ -87,7 +105,38 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //        });
 //        //save.setOnClickListener(this);
 
+        myRef= FirebaseDatabase.getInstance().getReference("details");
+        myRef.keepSynced(true);
+        Query query = myRef.orderByChild("email").equalTo(email);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                if (dataSnapshot.exists()) {
+                    // dataSnapshot is the "issue" node with all children with id 0
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        // do something with the individual "issues"
+                        Details details = issue.getValue(Details.class);
+                        name=issue.getValue(Details.class).getName();
+                        bloodgroup=issue.getValue(Details.class).getBlood();
+                        }
+                    bloodgr.setText(bloodgroup+"ve");
+                    nameView.setText(name);
+
+
+                    }
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

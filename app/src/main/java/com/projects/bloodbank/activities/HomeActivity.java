@@ -38,7 +38,7 @@ import java.util.ListIterator;
 
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
-    LinearLayout donarLayout,chatLayout,eventsLayout,updatelayout;
+    LinearLayout donarLayout,chatLayout,eventsLayout,updatelayout,healthtips,donordifferal;
     Dialog dialog;
 
     boolean doubleBackToExitPressedOnce = false;
@@ -73,6 +73,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         chatLayout=(LinearLayout)findViewById(R.id.chatLayout);
         eventsLayout=(LinearLayout)findViewById(R.id.eventsLayout);
         updatelayout = (LinearLayout)findViewById(R.id.updatedate);
+        healthtips=(LinearLayout)findViewById(R.id.healthtipsLayout);
+        donordifferal=(LinearLayout)findViewById(R.id.donordefferalLayout);
+
+
         nameView=(TextView) findViewById(R.id.nameView);
         bloodgr=(TextView) findViewById(R.id.bloodgr);
 //        //lastDate=(EditText) findViewById(R.id.lastDate);
@@ -85,6 +89,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         chatLayout.setOnClickListener(this);
        eventsLayout.setOnClickListener(this);
        updatelayout.setOnClickListener(this);
+       healthtips.setOnClickListener(this);
+       donordifferal.setOnClickListener(this);
 //        final ImageView imageViewuE=(ImageView)findViewById(R.id.imageViewup);
 //        imageViewuE.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -195,13 +201,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent3=new Intent(HomeActivity.this,LastDateActivity.class);
                 intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent3);
-
+                break;
+            case R.id.healthtipsLayout:
+                Intent intent4=new Intent(HomeActivity.this,Health_Tips.class);
+                intent4.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent4);
+                break;
+            case R.id.donordefferalLayout:
+                Intent intent5=new Intent(HomeActivity.this,Deferral_Activity.class);
+                intent5.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent5);
                 break;
 
         }
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

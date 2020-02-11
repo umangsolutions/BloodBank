@@ -178,11 +178,6 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
             }
         });
 
-
-
-
-
-
         spinner=findViewById(R.id.spinnerBloodGroup);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -204,9 +199,6 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
                                 Date cd = Calendar.getInstance().getTime();
-
-
-
                                 System.out.println("Current time => " + cd);
                                 SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
                                 String currdate = df.format(cd);
@@ -287,6 +279,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         if (v.getId() == R.id.donarSend) {
             String donarMessage = donarEdittext.getText().toString();
+            String res = donarMessage+"\nClick below link to see Deferral Poster\nhttps://slideplayer.com/slide/1468017/4/images/12/3.+Deferral+Criteria+Who+CANNOT+donate.jpg";
 
             if (!donarMessage.isEmpty()) {
                 donarSend.setEnabled(true);
@@ -306,7 +299,7 @@ public class DonarDetailsActivity extends AppCompatActivity implements View.OnCl
                     Uri sendSmsTo = Uri.parse("smsto:" + toNumbers);
                     Intent intent = new Intent(
                             Intent.ACTION_SENDTO, sendSmsTo);
-                    intent.putExtra("sms_body", donarMessage);
+                    intent.putExtra("sms_body",res);
                     startActivity(intent);
                 }
             }

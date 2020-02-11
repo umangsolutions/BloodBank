@@ -33,7 +33,7 @@
     <string name="location">Location</string>
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
-    <string name="signout">SignOut</string>
+    <string name="signout">Sign Out</string>
     <string name="no_internet_connection_available">No Internet Connection Available</string>
     <string name="enter_location">Enter Location</string>
     <string name="enter_description">Enter Description</string>
@@ -47,6 +47,8 @@
     <string name="last_blood_donation">Last Donation</string>
     <string name="no_events_to_display">No Events to Display</string>
     <string name="welcome_message">Welcome</string>
+    <string name="health_benefits">Health Benefits</string>
+    <string name="donor_deferral">Donor Deferral</string>
 
     <array name="blood">
         <item>Select Your Blood Group</item>
